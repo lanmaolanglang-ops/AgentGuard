@@ -1,0 +1,215 @@
+{
+  "captured_at": "2026-11-06T01:33:48.5080775+00:00",
+  "files": [
+    {
+      "path": "docs/p0.1/00-P0-EXECUTIVE-SUMMARY.md",
+      "bytes": 5304,
+      "sha256": "e2bffcd480d0ea01f2668373e734f4dfd9903e02b815a916c254ab9efc8a5a46"
+    },
+    {
+      "path": "docs/p0.1/01-PRODUCT-REQUIREMENTS.md",
+      "bytes": 8353,
+      "sha256": "6933806e596bfc5f29f9c63e82825a9674da91e552b69c47f0b1ab6aab9b6bf1"
+    },
+    {
+      "path": "docs/p0.1/02-THREAT-MODEL.md",
+      "bytes": 10763,
+      "sha256": "e924e4d2c627520957031538b123c9b1df26c438c7d19279ef5cdf7cc53c068e"
+    },
+    {
+      "path": "docs/p0.1/03-TRUST-BOUNDARIES.md",
+      "bytes": 9290,
+      "sha256": "c6becc0487a1c822f09e4ceec720291713c98786113a843a5fb4b8cdec786b5f"
+    },
+    {
+      "path": "docs/p0.1/04-AGENT-CAPABILITY-MATRIX.md",
+      "bytes": 26176,
+      "sha256": "1043f6f87ffe8c8e5b285751e0fd65d7965ff03ef08bb78153455c9e496a1b5a"
+    },
+    {
+      "path": "docs/p0.1/05-TECHNICAL-ARCHITECTURE.md",
+      "bytes": 10211,
+      "sha256": "ac50a9e112ac52ae78f09975523a88489639c81570171f1992c287841d06926c"
+    },
+    {
+      "path": "docs/p0.1/06-ADAPTER-SPECIFICATION.md",
+      "bytes": 9802,
+      "sha256": "019f191502bfff56a95aad494c862e42be2712bdc8768a79a84f841d55450e5f"
+    },
+    {
+      "path": "docs/p0.1/07-UNIFIED-EVENT-SCHEMA.md",
+      "bytes": 177806,
+      "sha256": "7668352e5b0583dbcee7e1dc281114f8a08f02b3b35c5e14d9e9516ca1c2eed0"
+    },
+    {
+      "path": "docs/p0.1/08-SECURITY-POLICY-ENGINE.md",
+      "bytes": 12457,
+      "sha256": "e57e5d79832d534b93e982cee65d12daf56c51b38a869a98127f1e24947eecea"
+    },
+    {
+      "path": "docs/p0.1/09-UI-UX-SPECIFICATION.md",
+      "bytes": 13948,
+      "sha256": "bd8c17be721699378f2c85f488ddc9be4516ec0625598842db6a7e7e1c53e930"
+    },
+    {
+      "path": "docs/p0.1/10-TEST-AND-ACCEPTANCE-PLAN.md",
+      "bytes": 21393,
+      "sha256": "eaddfc0be9c6e996ab2410939aa72588fb963cfc5e75c3026179a1a0f15f1567"
+    },
+    {
+      "path": "docs/p0.1/11-TECHNOLOGY-DECISIONS.md",
+      "bytes": 6980,
+      "sha256": "8be4ad087beae32802485996d8f981dd6c1b5901e310cc1205b557cf674c50a0"
+    },
+    {
+      "path": "docs/p0.1/12-OPEN-QUESTIONS.md",
+      "bytes": 6678,
+      "sha256": "d27ce073544638e45767f2ad376ab6fc6d771c0b3f8f0f11bb312ea8edd45396"
+    },
+    {
+      "path": "docs/p0.1/13-SOURCE-REGISTER.md",
+      "bytes": 41664,
+      "sha256": "c8f65f33fca361792c6b03ead21be0f44edb53d8117495694777be03e2488e3f"
+    },
+    {
+      "path": "docs/p0.1/14-P1-DEVELOPMENT-PLAN.md",
+      "bytes": 10961,
+      "sha256": "81a16f6d7122b8bba8030e98ffeff53263cbe91796cdd93bfec7f975097f3bf2"
+    },
+    {
+      "path": "docs/p0.1/15-EXECUTION-BROKER-CONTRACT.md",
+      "bytes": 13624,
+      "sha256": "c5f12b4ceefac66884e25a52752b12f98fe4a7d5e665f789faca1d4b458aeb84"
+    },
+    {
+      "path": "docs/p0.1/16-PROTECTION-CAPABILITY-CONTRACT.md",
+      "bytes": 6916,
+      "sha256": "7b1f7d8d4bf96bd06d43b7f2a12cae9a7b33154f5e97d52beffc3a1bb873b55e"
+    },
+    {
+      "path": "docs/p0.1/17-WINDOWS-NETWORK-ISOLATION.md",
+      "bytes": 10651,
+      "sha256": "66fc0ad31c52dc87d319494dfa87448dc90a1b9ef058869cdc9d361de5106712"
+    },
+    {
+      "path": "docs/p0.1/18-CRYPTOGRAPHIC-CONTRACT.md",
+      "bytes": 40114,
+      "sha256": "7fbcdf84001e77c2466975041dac9d94fd69aae2978155125e67cc863b8a7496"
+    },
+    {
+      "path": "docs/p0.1/19-WINDOWS-ISOLATION-POC.md",
+      "bytes": 8516,
+      "sha256": "2b3d51d3c755bf0ff8ebcfed47d5e760abf47341b276f3b7d6a880999a1337b5"
+    },
+    {
+      "path": "docs/p0.1/20-PROTOCOL-VALIDATION-FIXTURES.md",
+      "bytes": 203623,
+      "sha256": "678be5b355e4ca4cb372ed4e7e4c1ae194160c21941427a4f9205c92f5c847b3"
+    },
+    {
+      "path": "docs/p0.1/P0.1-ACCEPTANCE-REPORT.md",
+      "bytes": 10280,
+      "sha256": "b2c50622aaaff6f7f9c2ec1f1a9e85ec0729ee007e168e7e4b9be0ac7f79052d"
+    },
+    {
+      "path": "docs/p0.1/P0.1-CHANGELOG.md",
+      "bytes": 5631,
+      "sha256": "a8d207f0ff6daefba1a871ad813ce12c915214dd68f8699a858ecde8902daa09"
+    },
+    {
+      "path": "docs/p0.1/P0.1-CROSS-DOCUMENT-AUDIT.md",
+      "bytes": 14682,
+      "sha256": "696ce7d17d86bf5a642873afe8b71c62828e5951431f09b7d5a040e3255aed67"
+    },
+    {
+      "path": "docs/p0.1/P0.1-DECISION-LOG.md",
+      "bytes": 5602,
+      "sha256": "b5c623e7d948afb199e64e82042a65411420b53b9b55441d5f9640552e758cbb"
+    },
+    {
+      "path": "docs/p0.1/P0.1-DOCUMENT-INDEX.md",
+      "bytes": 8813,
+      "sha256": "f7bfcb4ea1213b47db57c7c2aa1500e8dc9d3951f684986f4bb279c84c7e22c2"
+    },
+    {
+      "path": "docs/p0.1/P0.1-TRACEABILITY.md",
+      "bytes": 7071,
+      "sha256": "623409f63d6a9759786c5cb0eb8fd111ac72189cfa192a23ea33ade1cc0e59da"
+    },
+    {
+      "path": "docs/p0/00-P0-EXECUTIVE-SUMMARY.md",
+      "bytes": 10677,
+      "sha256": "9af9ab5c7a29e6b7014ad6cc391cae7f76e323020fc9e6c5f32dc4b86b8e308d"
+    },
+    {
+      "path": "docs/p0/01-PRODUCT-REQUIREMENTS.md",
+      "bytes": 8583,
+      "sha256": "4f799b0416eefda55559162d45197058bef2987f45e44302cc51e937f87bdea0"
+    },
+    {
+      "path": "docs/p0/02-THREAT-MODEL.md",
+      "bytes": 8467,
+      "sha256": "d9a58d99695829b5099d6aa33cdf60ea1d652a13aae301203a1889b9faf8f1b4"
+    },
+    {
+      "path": "docs/p0/03-TRUST-BOUNDARIES.md",
+      "bytes": 8839,
+      "sha256": "e4c51693c896b837964cf35ce4d553d26f836bd204dac363d0834260c19ff976"
+    },
+    {
+      "path": "docs/p0/04-AGENT-CAPABILITY-MATRIX.md",
+      "bytes": 25233,
+      "sha256": "3670223f117739aeafd938998855ee315e1de2d18a619f20bb3f27f822abdc1c"
+    },
+    {
+      "path": "docs/p0/05-TECHNICAL-ARCHITECTURE.md",
+      "bytes": 9409,
+      "sha256": "9bd26848e1f1c2fd11e68696dc3d9293f50f11a7e48988b3c19b6aaead090330"
+    },
+    {
+      "path": "docs/p0/06-ADAPTER-SPECIFICATION.md",
+      "bytes": 9513,
+      "sha256": "00cfa14dc97adde7e3dfdcb4c00dc0598ba50cc768d05195946e21cb433ca98c"
+    },
+    {
+      "path": "docs/p0/07-UNIFIED-EVENT-SCHEMA.md",
+      "bytes": 28796,
+      "sha256": "0ad9591bcd510a5c4e1352ef76743ccdc26636d001f00558fb51ff1316e32493"
+    },
+    {
+      "path": "docs/p0/08-SECURITY-POLICY-ENGINE.md",
+      "bytes": 14208,
+      "sha256": "dadc3c4cb875d4d9b61023fb957fafa8f4a79362efb5f8803b3d89209a76e667"
+    },
+    {
+      "path": "docs/p0/09-UI-UX-SPECIFICATION.md",
+      "bytes": 13517,
+      "sha256": "4dc4bdc060054bc5fed8ff4161eb986271b0f7e73f2607fa9ba4efef715d6ec8"
+    },
+    {
+      "path": "docs/p0/10-TEST-AND-ACCEPTANCE-PLAN.md",
+      "bytes": 12883,
+      "sha256": "3083e6f9c5376cad603cf904be710417dc0a1af278174a0c5595e84a6caea38f"
+    },
+    {
+      "path": "docs/p0/11-TECHNOLOGY-DECISIONS.md",
+      "bytes": 5829,
+      "sha256": "efdf3a985496aa682fd0896637531c513dc19a24ec5361ee3e0a3091c5249530"
+    },
+    {
+      "path": "docs/p0/12-OPEN-QUESTIONS.md",
+      "bytes": 5404,
+      "sha256": "7ac4ef1f59d5d6344cf6de14184108e4b96d97e42b2128b8d1ec8ce6f0eaecbe"
+    },
+    {
+      "path": "docs/p0/13-SOURCE-REGISTER.md",
+      "bytes": 30964,
+      "sha256": "942552daee67c1ae69a4362889688dc9deb8b3a1736c4694290bf0b162a59365"
+    },
+    {
+      "path": "docs/p0/14-P1-DEVELOPMENT-PLAN.md",
+      "bytes": 8954,
+      "sha256": "a593bff490c3117d570a77a8dd201f59682cef37ca9df81b356bd7a81456807d"
+    }
+  ]
+}

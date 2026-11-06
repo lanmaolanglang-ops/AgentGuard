@@ -1,0 +1,330 @@
+[
+  {
+    "source": "https://github.com/esengine/DeepSeek-Reasonix/blob/f4f32cc7d3078f7031c7852fbf0b7de410958199/docs/GUIDE.md",
+    "commit": "f4f32cc7d3078f7031c7852fbf0b7de410958199",
+    "sha256": "d101d736fe264e0a425ed8f3e19a1d71d389934056a30073080c215a654c3e1b",
+    "matched_lines": [
+      {
+        "line": 42,
+        "text": "`%AppData%\\reasonix\\config.toml` on Windows; see"
+      },
+      {
+        "line": 82,
+        "text": "# write_lease_max_wait_minutes = 0    # minutes a write waits behind another session's claim before it fails with workspace.claim_timeout; 0 (default) = wait as long as the turn lasts, 120 is a sensible limit (user config only)"
+      },
+      {
+        "line": 101,
+        "text": "# idle_timeout_seconds = 300   # per-provider stream idle watchdog; how long a call may send nothing before it is read as dropped (default 300s; a silent pre-header wait is retried once, so up to ~2×)"
+      },
+      {
+        "line": 106,
+        "text": "bash_timeout_seconds = 120   # foreground safety cap; set 0 for no tool-local cap"
+      },
+      {
+        "line": 112,
+        "text": "mcp_startup_timeout_seconds = 30   # background initialize + tools/list safety cap"
+      },
+      {
+        "line": 113,
+        "text": "mcp_call_timeout_seconds = 300   # default MCP call safety cap; per-plugin/tool overrides may raise it"
+      },
+      {
+        "line": 159,
+        "text": "# enabled = false              # run the hooks module of installed Claude Code mods; full trust, no sandbox (user config only)"
+      },
+      {
+        "line": 175,
+        "text": "startup_timeout_seconds = 60   # optional initialize + tools/list cap"
+      },
+      {
+        "line": 176,
+        "text": "call_timeout_seconds = 600   # optional per-server MCP call timeout"
+      },
+      {
+        "line": 177,
+        "text": "tool_timeout_seconds = { \"generate_video\" = 1800 }   # optional raw MCP tool names"
+      },
+      {
+        "line": 387,
+        "text": "  token file. Windows has no bash sandbox, so there only the read tools refuse."
+      },
+      {
+        "line": 459,
+        "text": "Linux, macOS and Windows remote hosts are supported. A Windows host needs PowerShell and OpenSSH, whichever login shell (cmd,"
+      },
+      {
+        "line": 504,
+        "text": "A WSL distribution on a Windows machine is a host with `kind = \"wsl\"` and a `distro` (see `reasonix remote wsl list`):"
+      },
+      {
+        "line": 519,
+        "text": "- A folder chosen as a Windows path (`C:\\work\\app` or `\\\\wsl.localhost\\<distro>\\home\\me\\app`) is translated by"
+      },
+      {
+        "line": 807,
+        "text": "| `PreToolUse` | before a tool call, after matching; `toolName` and `toolArgs` are in the payload | yes |"
+      },
+      {
+        "line": 810,
+        "text": "| `PermissionRequest` | before an approval prompt is shown | no |"
+      },
+      {
+        "line": 825,
+        "text": "    \"PreToolUse\": ["
+      },
+      {
+        "line": 830,
+        "text": "        \"timeout\": 3000"
+      },
+      {
+        "line": 846,
+        "text": "- `timeout`: milliseconds; default 5000 for `PreToolUse`, `PermissionRequest`"
+      },
+      {
+        "line": 859,
+        "text": "- `2` blocks, but only on `PreToolUse` and `UserPromptSubmit`. A blocked tool"
+      },
+      {
+        "line": 864,
+        "text": "- A timeout blocks on `PreToolUse` and `UserPromptSubmit` and warns elsewhere."
+      },
+      {
+        "line": 865,
+        "text": "  A hook that cannot be spawned does not block, and neither does a script that"
+      },
+      {
+        "line": 905,
+        "text": "- Only tool hooks (`PreToolUse`, `PostToolUse`, `PermissionRequest`),"
+      },
+      {
+        "line": 915,
+        "text": "- Native hooks cannot answer an approval prompt; only a `PreToolUse` block"
+      },
+      {
+        "line": 921,
+        "text": "`UserPromptSubmit`, `PreToolUse`, and `PreCompact`. A successful `SessionStart`"
+      },
+      {
+        "line": 938,
+        "text": "Tool hooks (`PreToolUse`, `PostToolUse`, `PermissionRequest`), `PostLLMCall`"
+      },
+      {
+        "line": 995,
+        "text": "`Ctrl+Y` elsewhere for YOLO by default. If YOLO is rebound on Windows/Linux,"
+      },
+      {
+        "line": 1023,
+        "text": "| `Cmd+K` on macOS, `Ctrl+K` on Windows/Linux | Toggles the command palette | The palette focuses search when it opens; `Esc` closes it. |"
+      },
+      {
+        "line": 1024,
+        "text": "| `Cmd+,` on macOS, `Ctrl+,` on Windows/Linux | Opens Settings | Use **Shortcuts** in Settings to customize desktop bindings. |"
+      },
+      {
+        "line": 1025,
+        "text": "| `Cmd+W` on macOS, `Ctrl+W` on Windows/Linux | Closes the active top tab | The last tab is kept by the normal close-tab guard. |"
+      },
+      {
+        "line": 1039,
+        "text": "| `Cmd+Z` on macOS, `Ctrl+Z` on Windows/Linux | Undoes the latest composer edit | Native typing stays in the WebView history; Reasonix-managed paste, cut, folded blocks, and structured tokens are restored as complete transactions. |"
+      },
+      {
+        "line": 1040,
+        "text": "| `Cmd+Shift+Z` on macOS, `Ctrl+Shift+Z` on Windows/Linux | Redoes the latest composer edit | On Windows/Linux, `Ctrl+Y` is also accepted after the YOLO shortcut has been rebound. |"
+      },
+      {
+        "line": 1042,
+        "text": "| `Cmd+V` on macOS, `Ctrl+V` on Windows/Linux | Pastes clipboard content | Clipboard images are attached. Studio references ordinary files by their native path when available, including files selected with Add attachment, pasted, or dropped. Sources without a native path stream into the workspace. |"
+      },
+      {
+        "line": 1209,
+        "text": "| Transcript text selection | Copies transcript text | Releasing an in-app drag writes through the verified native clipboard path in a local session (`pbcopy` on macOS, the available Wayland/X11 tool on Linux, or the Windows clipboard). SSH falls back to OSC 52 and labels the fallback instead of claiming native success. `Ctrl+C`/`Super+C`/`Meta+C`/`Ctrl+Insert` or right-clicking the active selection copies it again. |"
+      },
+      {
+        "line": 1214,
+        "text": "| `Ctrl+Z` | Suspends the TUI to the shell | macOS and Linux; resume it with `fg`. Windows has no job control, so the key does nothing there. |"
+      },
+      {
+        "line": 1218,
+        "text": "| `Ctrl+V` on macOS/Linux; `Alt+V` on Windows | Pastes a clipboard image | Image paste is a separate application action. The footer shows `Pasting image…` while the clipboard is read, then inserts an editable `[image #N]` token at the cursor. |"
+      },
+      {
+        "line": 1242,
+        "text": "| `/migrate`, `/migrate --from <legacy-dir>` | Retries legacy migration or imports sessions from a chosen v0.x source | Use `--from` for custom Windows v0.52 install/data directories; it imports sessions only. See [Configuration paths](./CONFIG_PATHS.md). |"
+      },
+      {
+        "line": 1409,
+        "text": "- Windows has no Bash sandbox, so none of this is enforced there."
+      },
+      {
+        "line": 1439,
+        "text": "| Windows (no OS Bash sandbox) | Host path of the private dir | Not promised to match (e.g. Git Bash `/tmp`) |"
+      },
+      {
+        "line": 1446,
+        "text": "**Windows note:** the OS-level Bash sandbox on Windows is off unless the user"
+      },
+      {
+        "line": 1447,
+        "text": "turns on `[sandbox] windows_integrity = true` (see \"On Windows\" below). While it"
+      },
+      {
+        "line": 1462,
+        "text": "On Windows the sandbox is off unless you turn on"
+      },
+      {
+        "line": 1463,
+        "text": "`[sandbox] windows_integrity = true` (Settings > Sandbox; user file only)."
+      },
+      {
+        "line": 1465,
+        "text": "### On Windows"
+      },
+      {
+        "line": 1467,
+        "text": "With `windows_integrity` on, a bash command runs under a write-restricted token."
+      },
+      {
+        "line": 1469,
+        "text": "- The first session grants a synthetic Windows identity write access on the"
+      },
+      {
+        "line": 1477,
+        "text": "What it bounds, measured on Windows 11 and for every child process:"
+      },
+      {
+        "line": 1489,
+        "text": "  Windows does not apply the restriction to those two. The delete guard and the"
+      },
+      {
+        "line": 1492,
+        "text": "- **Host authorities**: the Windows named pipes of ssh-agent and docker, and COM"
+      },
+      {
+        "line": 1503,
+        "text": "  a job that cannot reach the other windows, clipboard or display settings of your session."
+      },
+      {
+        "line": 1509,
+        "text": "- Not measured: standard (non-admin) accounts, other Windows versions, ReFS and"
+      },
+      {
+        "line": 1566,
+        "text": "reasonix doctor capabilities --live --timeout 5s"
+      },
+      {
+        "line": 1708,
+        "text": "# startup_timeout_seconds = 60    # optional initialize + tools/list cap"
+      },
+      {
+        "line": 1709,
+        "text": "# call_timeout_seconds = 600       # optional per-server MCP call timeout"
+      },
+      {
+        "line": 1710,
+        "text": "# tool_timeout_seconds = { \"generate_video\" = 1800 }   # optional raw MCP tool names"
+      },
+      {
+        "line": 1729,
+        "text": "restarted; retry the tool after it comes online. `mcp_startup_timeout_seconds`"
+      },
+      {
+        "line": 1731,
+        "text": "`tools/list` sequence. `mcp_call_timeout_seconds` applies only after the server"
+      },
+      {
+        "line": 2135,
+        "text": "  Windows drive colons are preserved."
+      },
+      {
+        "line": 2333,
+        "text": "  `cmd.exe` on Windows from searching the current directory first."
+      }
+    ],
+    "runtime_verified": false
+  },
+  {
+    "source": "https://github.com/esengine/DeepSeek-Reasonix/blob/f4f32cc7d3078f7031c7852fbf0b7de410958199/docs/CONFIG_PATHS.md",
+    "commit": "f4f32cc7d3078f7031c7852fbf0b7de410958199",
+    "sha256": "c4ae6a9017371e3d4c136b0a788839f05f46b27a78c22dd09a7ac37a8b88ffba",
+    "matched_lines": [
+      {
+        "line": 13,
+        "text": "| Windows | `%APPDATA%\\reasonix` |"
+      },
+      {
+        "line": 78,
+        "text": "On Windows, shell commands remain outside an OS sandbox as documented in the"
+      },
+      {
+        "line": 236,
+        "text": "`~/.cache/reasonix` on Linux, and `%LOCALAPPDATA%\\reasonix\\cache` on Windows."
+      },
+      {
+        "line": 268,
+        "text": "Windows:     %APPDATA%\\reasonix\\config.toml"
+      },
+      {
+        "line": 321,
+        "text": "Windows v0.52 install/data directory chosen during setup — pass that directory"
+      },
+      {
+        "line": 357,
+        "text": "| Windows | `%APPDATA%\\Reasonix Studio\\io.reasonix.studio.<instance>\\logs` |"
+      }
+    ],
+    "runtime_verified": false
+  },
+  {
+    "source": "https://github.com/esengine/DeepSeek-Reasonix/blob/f4f32cc7d3078f7031c7852fbf0b7de410958199/docs/EXTENSION_PROTOCOL.md",
+    "commit": "f4f32cc7d3078f7031c7852fbf0b7de410958199",
+    "sha256": "a31b8509d86ce730a9292c8c1ff46cc66838661ad876ea86c084feae45ad8dfd",
+    "matched_lines": [
+      {
+        "line": 8,
+        "text": "# Reasonix Extension Protocol v2"
+      },
+      {
+        "line": 36,
+        "text": "1. The host spawns the sidecar (exec form, no shell) and sends `extension/initialize` first. The params carry the manifest expectation: the intercepts, replaces, providers, and UI actions the host will accept."
+      },
+      {
+        "line": 45,
+        "text": "4. Shutdown is bounded: `extension/shutdown` with a timeout, then stdin"
+      },
+      {
+        "line": 69,
+        "text": "- Decisions per call: `continue` (pass the payload along), `block` (abort the operation with a user-visible reason), `replace` (substitute the payload — the host re-validates it against the point's DTO and schema before use), and `allow`/`deny` (only legal at `permission.decision`)."
+      },
+      {
+        "line": 72,
+        "text": "- A full-trust `allow` overrides a host deny and is audited."
+      },
+      {
+        "line": 74,
+        "text": "- The chain runs first; the slot owner gets the final say. A strategy owner's timeout or error always fails the operation."
+      },
+      {
+        "line": 75,
+        "text": "- Timeouts: input/tool/permission points default to 5s; the"
+      },
+      {
+        "line": 85,
+        "text": "(models, context windows, pricing, vision, reasoning, effort) — never"
+      },
+      {
+        "line": 142,
+        "text": "  the model's `arguments` and a `timeoutMillis` budget (5 minutes today)."
+      },
+      {
+        "line": 162,
+        "text": "A code extension is **full trust**: it runs outside the Reasonix sandbox with the unfiltered inherited environment, can read the full session and environment, can bypass permissions, and can operate the machine directly."
+      },
+      {
+        "line": 168,
+        "text": "The install preview, plugin details, and capability diagnostics always display the FULL TRUST block for runtime plugins."
+      }
+    ],
+    "runtime_verified": false
+  }
+]

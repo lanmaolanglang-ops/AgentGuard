@@ -1,0 +1,303 @@
+{
+  "captured_at": "2026-11-06T01:33:48.5080775+00:00",
+  "scope": "metadata_only_no_agent_execution",
+  "agents": [
+    {
+      "agent_id": "A01",
+      "name": "Codex",
+      "client_version": "26.1029.7803.0",
+      "runtime_version": null,
+      "adapter_version": null,
+      "tool_provider": null,
+      "config_digest": null,
+      "binary": {
+        "file_version": null,
+        "sha256": "8e6857405c789e94d2ccc7ed395a87b31097c6b4cfcdaf2d970486255d274ba8",
+        "signature_status": "Valid",
+        "product_name": null,
+        "path": "C:\\Program Files\\WindowsApps\\OpenAI.Codex_26.1029.7803.0_x64__2p2nqsd0c76g0\\app\\Codex.exe",
+        "signer": "CN=\"OpenAI OpCo, LLC\", O=\"OpenAI OpCo, LLC\", L=San Francisco, S=California, C=US",
+        "product_version": null
+      },
+      "publisher_signature": {
+        "status": "Valid",
+        "signer": "CN=\"OpenAI OpCo, LLC\", O=\"OpenAI OpCo, LLC\", L=San Francisco, S=California, C=US",
+        "scope": "selected_pe_only"
+      },
+      "historical_evidence_grade": "E1",
+      "source_refs": [
+        "S01",
+        "S02",
+        "S03",
+        "S04",
+        "S05",
+        "S06",
+        "S57",
+        "S58"
+      ],
+      "local_evidence": [
+        "Appx metadata",
+        "selected PE metadata/SHA-256/Authenticode"
+      ],
+      "unknowns": [
+        "runtime/provider/config未读取，未建立运行profile"
+      ],
+      "level": "L0",
+      "capabilities": {
+        "telemetry_verified": false,
+        "pre_execution_block_verified": false,
+        "parameter_binding_verified": false,
+        "single_use_grant_verified": false,
+        "os_isolation_verified": false
+      },
+      "execution_modes_verified": []
+    },
+    {
+      "agent_id": "A02",
+      "name": "Claude Code",
+      "client_version": null,
+      "runtime_version": null,
+      "adapter_version": null,
+      "tool_provider": null,
+      "config_digest": null,
+      "binary": null,
+      "publisher_signature": null,
+      "historical_evidence_grade": "E1",
+      "source_refs": [
+        "S07",
+        "S08",
+        "S09",
+        "S10"
+      ],
+      "local_evidence": [
+        "identity unknown in limited local inventory"
+      ],
+      "unknowns": [
+        "runtime/provider/config未读取，未建立运行profile"
+      ],
+      "level": "L0",
+      "capabilities": {
+        "telemetry_verified": false,
+        "pre_execution_block_verified": false,
+        "parameter_binding_verified": false,
+        "single_use_grant_verified": false,
+        "os_isolation_verified": false
+      },
+      "execution_modes_verified": []
+    },
+    {
+      "agent_id": "A03",
+      "name": "DeepSeek Harness（DSH）",
+      "client_version": null,
+      "runtime_version": null,
+      "adapter_version": null,
+      "tool_provider": null,
+      "config_digest": null,
+      "binary": {
+        "file_version": "0.2.1-rc.2",
+        "sha256": "9c789407850773ce7d914a3ec0476852bf1ceea69789d8ccf4e39be953f4bf52",
+        "signature_status": "Valid",
+        "product_name": "DeepSeek Harness",
+        "path": "%USERPROFILE%\\AppData\\Local\\Programs\\DeepSeek Harness\\DeepSeek Harness.exe",
+        "signer": "CN=\"Hangzhou DeepSeek Artificial Intelligence Co., Ltd.\", O=\"Hangzhou DeepSeek Artificial Intelligence Co., Ltd.\", L=Hangzhou, S=Zhejiang, C=CN, OID.1.3.6.1.4.1.311.60.2.1.1=Hangzhou, OID.1.3.6.1.4.1.311.60.2.1.2=Zhejiang, OID.1.3.6.1.4.1.311.60.2.1.3=CN, SERIALNUMBER=91330105MACPN4X08Y, OID.2.5.4.15=Private Organization",
+        "product_version": "0.2.1.0"
+      },
+      "publisher_signature": {
+        "status": "Valid",
+        "signer": "CN=\"Hangzhou DeepSeek Artificial Intelligence Co., Ltd.\", O=\"Hangzhou DeepSeek Artificial Intelligence Co., Ltd.\", L=Hangzhou, S=Zhejiang, C=CN, OID.1.3.6.1.4.1.311.60.2.1.1=Hangzhou, OID.1.3.6.1.4.1.311.60.2.1.2=Zhejiang, OID.1.3.6.1.4.1.311.60.2.1.3=CN, SERIALNUMBER=91330105MACPN4X08Y, OID.2.5.4.15=Private Organization",
+        "scope": "selected_pe_only"
+      },
+      "historical_evidence_grade": "E2",
+      "source_refs": [
+        "S11",
+        "S12",
+        "S13",
+        "S14",
+        "S15",
+        "S16",
+        "S17",
+        "S18",
+        "S19",
+        "S20"
+      ],
+      "local_evidence": [
+        "selected PE metadata/SHA-256/Authenticode"
+      ],
+      "unknowns": [
+        "runtime/provider/config未读取，未建立运行profile",
+        "PE ProductVersion 0.2.1.0与FileVersion 0.2.1-rc.2保留差异"
+      ],
+      "level": "L0",
+      "capabilities": {
+        "telemetry_verified": false,
+        "pre_execution_block_verified": false,
+        "parameter_binding_verified": false,
+        "single_use_grant_verified": false,
+        "os_isolation_verified": false
+      },
+      "execution_modes_verified": []
+    },
+    {
+      "agent_id": "A04",
+      "name": "豆包 App 内工作模式",
+      "client_version": null,
+      "runtime_version": null,
+      "adapter_version": null,
+      "tool_provider": null,
+      "config_digest": null,
+      "binary": null,
+      "publisher_signature": null,
+      "historical_evidence_grade": "E0",
+      "source_refs": [
+        "R01",
+        "S21",
+        "S22"
+      ],
+      "local_evidence": [
+        "identity unknown in limited local inventory"
+      ],
+      "unknowns": [
+        "runtime/provider/config未读取，未建立运行profile",
+        "用户确认App内工作模式，Windows包与构建未确认"
+      ],
+      "level": "L0",
+      "capabilities": {
+        "telemetry_verified": false,
+        "pre_execution_block_verified": false,
+        "parameter_binding_verified": false,
+        "single_use_grant_verified": false,
+        "os_isolation_verified": false
+      },
+      "execution_modes_verified": []
+    },
+    {
+      "agent_id": "A05",
+      "name": "Reasonix",
+      "client_version": "2.56.0",
+      "runtime_version": null,
+      "adapter_version": null,
+      "tool_provider": null,
+      "config_digest": null,
+      "binary": null,
+      "publisher_signature": null,
+      "historical_evidence_grade": "E2",
+      "source_refs": [
+        "S23",
+        "S24",
+        "S25",
+        "S26",
+        "S27",
+        "S28",
+        "S29",
+        "S30"
+      ],
+      "local_evidence": [
+        "uninstall metadata only"
+      ],
+      "unknowns": [
+        "runtime/provider/config未读取，未建立运行profile"
+      ],
+      "level": "L0",
+      "capabilities": {
+        "telemetry_verified": false,
+        "pre_execution_block_verified": false,
+        "parameter_binding_verified": false,
+        "single_use_grant_verified": false,
+        "os_isolation_verified": false
+      },
+      "execution_modes_verified": []
+    },
+    {
+      "agent_id": "A06",
+      "name": "WorkBuddy",
+      "client_version": "5.9.3",
+      "runtime_version": null,
+      "adapter_version": null,
+      "tool_provider": null,
+      "config_digest": null,
+      "binary": {
+        "file_version": "5.9.3",
+        "sha256": "bbf504003825e0e22dd8c401b396d79db78ec603558088565d1b2e81561704a0",
+        "signature_status": "Valid",
+        "product_name": "WorkBuddy",
+        "path": "D:\\workbuddy\\WorkBuddy.exe",
+        "signer": "CN=Tencent Technology (Shenzhen) Company Limited, O=Tencent Technology (Shenzhen) Company Limited, L=Shenzhen, S=Guangdong Province, C=CN, SERIALNUMBER=9144030071526726XG, OID.2.5.4.15=Private Organization, OID.1.3.6.1.4.1.311.60.2.1.1=Shenzhen, OID.1.3.6.1.4.1.311.60.2.1.2=Guangdong Province, OID.1.3.6.1.4.1.311.60.2.1.3=CN",
+        "product_version": "5.9.3.0"
+      },
+      "publisher_signature": {
+        "status": "Valid",
+        "signer": "CN=Tencent Technology (Shenzhen) Company Limited, O=Tencent Technology (Shenzhen) Company Limited, L=Shenzhen, S=Guangdong Province, C=CN, SERIALNUMBER=9144030071526726XG, OID.2.5.4.15=Private Organization, OID.1.3.6.1.4.1.311.60.2.1.1=Shenzhen, OID.1.3.6.1.4.1.311.60.2.1.2=Guangdong Province, OID.1.3.6.1.4.1.311.60.2.1.3=CN",
+        "scope": "selected_pe_only"
+      },
+      "historical_evidence_grade": "E1",
+      "source_refs": [
+        "S31",
+        "S32",
+        "S33",
+        "S34"
+      ],
+      "local_evidence": [
+        "selected PE metadata/SHA-256/Authenticode"
+      ],
+      "unknowns": [
+        "runtime/provider/config未读取，未建立运行profile"
+      ],
+      "level": "L0",
+      "capabilities": {
+        "telemetry_verified": false,
+        "pre_execution_block_verified": false,
+        "parameter_binding_verified": false,
+        "single_use_grant_verified": false,
+        "os_isolation_verified": false
+      },
+      "execution_modes_verified": []
+    },
+    {
+      "agent_id": "A07",
+      "name": "ZCode",
+      "client_version": null,
+      "runtime_version": null,
+      "adapter_version": null,
+      "tool_provider": null,
+      "config_digest": null,
+      "binary": {
+        "file_version": "41.0.3",
+        "sha256": "7466476dcbc733e9afb9630b7353330b8cf5c2f9964539b33e80b74f1d6c3e36",
+        "signature_status": "NotSigned",
+        "product_name": "Electron",
+        "path": "D:\\Zcode\\ZCode.exe",
+        "signer": null,
+        "product_version": "41.0.3"
+      },
+      "publisher_signature": {
+        "status": "NotSigned",
+        "signer": null,
+        "scope": "selected_pe_only"
+      },
+      "historical_evidence_grade": "E1",
+      "source_refs": [
+        "S35",
+        "S36",
+        "S37",
+        "S38",
+        "S39"
+      ],
+      "local_evidence": [
+        "selected PE metadata/SHA-256/Authenticode"
+      ],
+      "unknowns": [
+        "runtime/provider/config未读取，未建立运行profile",
+        "PE显示Electron 41.0.3，不能作为ZCode客户端版本，所选PE未签名"
+      ],
+      "level": "L0",
+      "capabilities": {
+        "telemetry_verified": false,
+        "pre_execution_block_verified": false,
+        "parameter_binding_verified": false,
+        "single_use_grant_verified": false,
+        "os_isolation_verified": false
+      },
+      "execution_modes_verified": []
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+[package]
+name = "agentguard-core"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+publish.workspace = true
+
+[[bin]]
+name = "agentguard-core"
+path = "src/main.rs"
+
+[[bin]]
+name = "agentguard-probe"
+path = "src/probe.rs"
+
+[dependencies]
+agentguard-protocol = { path = "../protocol" }
+serde.workspace = true
+serde_json.workspace = true
+sha2.workspace = true
+uuid.workspace = true
+tokio.workspace = true
+
+[target.'cfg(windows)'.dependencies]
+windows-sys.workspace = true

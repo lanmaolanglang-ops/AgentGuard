@@ -1,0 +1,218 @@
+[
+  {
+    "package": "ahash",
+    "version": "0.8.12",
+    "lines": 22,
+    "effects": []
+  },
+  {
+    "package": "generic-array",
+    "version": "0.14.7",
+    "lines": 5,
+    "effects": []
+  },
+  {
+    "package": "getrandom",
+    "version": "0.3.4",
+    "lines": 57,
+    "effects": [
+      "let mut cmd = Command::new(wrapper);",
+      "cmd.arg(rustc);",
+      "Command::new(rustc)",
+      "let out = cmd.arg(\"-vV\").output().ok()?;"
+    ]
+  },
+  {
+    "package": "getrandom",
+    "version": "0.4.3",
+    "lines": 11,
+    "effects": []
+  },
+  {
+    "package": "jsonschema-value",
+    "version": "0.60.2",
+    "lines": 4,
+    "effects": []
+  },
+  {
+    "package": "libc",
+    "version": "0.2.191",
+    "lines": 630,
+    "effects": [
+      "Some(ref wrapper) if wrapper.is_empty() => Command::new(rustc),",
+      "let mut cmd = Command::new(wrapper);",
+      "cmd.arg(rustc);",
+      "cmd.arg(\"--rustc\");",
+      "None => Command::new(rustc),",
+      "cmd.arg(\"--version\");",
+      "let output = Command::new(\"freebsd-version\").output().ok()?;",
+      "let output = Command::new(emcc).arg(\"-dumpversion\").output().ok()?;"
+    ]
+  },
+  {
+    "package": "num-traits",
+    "version": "0.2.19",
+    "lines": 7,
+    "effects": []
+  },
+  {
+    "package": "parking_lot_core",
+    "version": "0.9.12",
+    "lines": 11,
+    "effects": []
+  },
+  {
+    "package": "proc-macro2",
+    "version": "1.0.107",
+    "lines": 267,
+    "effects": [
+      "use std::fs;",
+      "// https://github.com/dtolnay/proc-macro2/issues/147",
+      "//     https://github.com/rust-lang/cargo/issues/11138",
+      "//     https://github.com/rust-lang/rust/issues/114839",
+      "let out_dir = cargo_env_var(\"OUT_DIR\");",
+      "if let Err(err) = fs::create_dir(&out_subdir) {",
+      "let mut cmd = Command::new(rustc.next().unwrap());",
+      ".arg(\"--cfg=procmacro2_build_probe\")",
+      ".arg(\"--edition=2021\")",
+      ".arg(\"--crate-name=proc_macro2\")",
+      ".arg(\"--crate-type=lib\")",
+      ".arg(\"--cap-lints=allow\")",
+      ".arg(\"--emit=dep-info,metadata\")",
+      ".arg(\"--out-dir\")",
+      ".arg(&out_subdir)",
+      ".arg(probefile);",
+      "cmd.arg(\"--target\").arg(target);",
+      "cmd.arg(arg);",
+      "// file in OUT_DIR, which causes nonreproducible builds in build systems",
+      "// that treat the entire OUT_DIR as an artifact."
+    ]
+  },
+  {
+    "package": "quote",
+    "version": "1.0.47",
+    "lines": 32,
+    "effects": [
+      "// https://blog.rust-lang.org/2024/05/02/Rust-1.78.0.html#diagnostic-attributes",
+      "let output = Command::new(rustc).arg(\"--version\").output().ok()?;"
+    ]
+  },
+  {
+    "package": "ref-cast",
+    "version": "1.0.27",
+    "lines": 50,
+    "effects": [
+      "use std::fs;",
+      "let out_dir = PathBuf::from(env::var_os(\"OUT_DIR\").unwrap());",
+      "fs::write(out_dir.join(\"private.rs\"), module).unwrap();",
+      "let output = Command::new(rustc).arg(\"--version\").output().ok()?;"
+    ]
+  },
+  {
+    "package": "rustversion",
+    "version": "1.0.23",
+    "lines": 119,
+    "effects": [
+      "use std::fs;",
+      "command = Command::new(&rustc);",
+      "command = Command::new(wrapped_rustc.next().unwrap());",
+      "command.arg(\"--rustc\");",
+      "command.arg(\"--version\");",
+      "// version format. https://github.com/dtolnay/rustversion/issues/67",
+      "Please file an issue in https://github.com/dtolnay/rustversion\",",
+      "let out_dir = env::var_os(\"OUT_DIR\").expect(\"OUT_DIR not set\");",
+      "fs::write(out_file, version).expect(\"failed to write version.expr\");"
+    ]
+  },
+  {
+    "package": "serde",
+    "version": "1.0.229",
+    "lines": 69,
+    "effects": [
+      "use std::fs;",
+      "let out_dir = PathBuf::from(env::var_os(\"OUT_DIR\").unwrap());",
+      "fs::write(out_dir.join(\"private.rs\"), module).unwrap();",
+      "// https://blog.rust-lang.org/2024/05/02/Rust-1.78.0.html#diagnostic-attributes",
+      "let output = Command::new(rustc).arg(\"--version\").output().ok()?;"
+    ]
+  },
+  {
+    "package": "serde_core",
+    "version": "1.0.229",
+    "lines": 113,
+    "effects": [
+      "use std::fs;",
+      "let out_dir = PathBuf::from(env::var_os(\"OUT_DIR\").unwrap());",
+      "fs::write(out_dir.join(\"private.rs\"), module).unwrap();",
+      "// https://blog.rust-lang.org/2022/09/22/Rust-1.64.0.html#c-compatible-ffi-types-in-core-and-alloc",
+      "// https://blog.rust-lang.org/2023/11/16/Rust-1.74.0.html#stabilized-apis",
+      "// https://blog.rust-lang.org/2024/03/21/Rust-1.77.0.html",
+      "// https://blog.rust-lang.org/2024/05/02/Rust-1.78.0.html#diagnostic-attributes",
+      "// https://blog.rust-lang.org/2024/09/05/Rust-1.81.0.html#coreerrorerror",
+      "let output = Command::new(rustc).arg(\"--version\").output().ok()?;"
+    ]
+  },
+  {
+    "package": "serde_json",
+    "version": "1.0.151",
+    "lines": 30,
+    "effects": []
+  },
+  {
+    "package": "unicode-general-category",
+    "version": "1.1.0",
+    "lines": 201,
+    "effects": [
+      "use std::fs::File;",
+      "let output_path = PathBuf::from(env::var(\"OUT_DIR\").unwrap()).join(\"category.rs\");"
+    ]
+  },
+  {
+    "package": "wasm-bindgen",
+    "version": "0.2.130",
+    "lines": 49,
+    "effects": []
+  },
+  {
+    "package": "wasm-bindgen-shared",
+    "version": "0.2.130",
+    "lines": 65,
+    "effects": [
+      "let rev = Command::new(\"git\")",
+      ".arg(\"rev-parse\")",
+      ".arg(\"HEAD\")",
+      "let schema_file = std::fs::read_to_string(&path)"
+    ]
+  },
+  {
+    "package": "wit-bindgen",
+    "version": "0.57.1",
+    "lines": 32,
+    "effects": [
+      "let out_dir = PathBuf::from(env::var_os(\"OUT_DIR\").unwrap());",
+      "std::fs::copy(&src, &dst).unwrap();"
+    ]
+  },
+  {
+    "package": "zerocopy",
+    "version": "0.8.63",
+    "lines": 267,
+    "effects": [
+      "// https://opensource.org/license/bsd-2-clause>, Apache License, Version 2.0",
+      "// <LICENSE-APACHE or https://www.apache.org/licenses/LICENSE-2.0>, or the MIT",
+      "// license <LICENSE-MIT or https://opensource.org/licenses/MIT>, at your option.",
+      "// FIXME(https://github.com/rust-lang/rust/issues/124816): Remove these",
+      "let cargo_toml = fs::read_to_string(\"Cargo.toml\").expect(\"failed to read Cargo.toml\");",
+      "Command::new(rustc_cmd_name).arg(\"--version\").output().expect(\"could not invoke rustc\");"
+    ]
+  },
+  {
+    "package": "zmij",
+    "version": "1.0.23",
+    "lines": 45,
+    "effects": [
+      "// https://doc.rust-lang.org/std/hint/fn.select_unpredictable.html",
+      "let output = Command::new(rustc).arg(\"--version\").output().ok()?;"
+    ]
+  }
+]

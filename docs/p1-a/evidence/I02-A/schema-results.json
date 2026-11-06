@@ -1,0 +1,1048 @@
+{
+  "schemas": 9,
+  "fixtures": 65,
+  "passed": 65,
+  "failed": 0,
+  "results": [
+    {
+      "id": "EV01",
+      "schema": "event-v2",
+      "expected_valid": true,
+      "actual_valid": true,
+      "passed": true,
+      "errors": []
+    },
+    {
+      "id": "EV02",
+      "schema": "event-v2",
+      "expected_valid": true,
+      "actual_valid": true,
+      "passed": true,
+      "errors": []
+    },
+    {
+      "id": "EV03",
+      "schema": "event-v2",
+      "expected_valid": true,
+      "actual_valid": true,
+      "passed": true,
+      "errors": []
+    },
+    {
+      "id": "EV04",
+      "schema": "event-v2",
+      "expected_valid": true,
+      "actual_valid": true,
+      "passed": true,
+      "errors": []
+    },
+    {
+      "id": "EV05",
+      "schema": "event-v2",
+      "expected_valid": true,
+      "actual_valid": true,
+      "passed": true,
+      "errors": []
+    },
+    {
+      "id": "EV06",
+      "schema": "event-v2",
+      "expected_valid": true,
+      "actual_valid": true,
+      "passed": true,
+      "errors": []
+    },
+    {
+      "id": "EV07",
+      "schema": "event-v2",
+      "expected_valid": true,
+      "actual_valid": true,
+      "passed": true,
+      "errors": []
+    },
+    {
+      "id": "EV08",
+      "schema": "event-v2",
+      "expected_valid": true,
+      "actual_valid": true,
+      "passed": true,
+      "errors": []
+    },
+    {
+      "id": "CV-BUNDLE",
+      "schema": "crypto-vectors-v2",
+      "expected_valid": true,
+      "actual_valid": true,
+      "passed": true,
+      "errors": []
+    },
+    {
+      "id": "LEG01",
+      "schema": "event-v1",
+      "expected_valid": true,
+      "actual_valid": true,
+      "passed": true,
+      "errors": []
+    },
+    {
+      "id": "LEG02",
+      "schema": "event-v1",
+      "expected_valid": true,
+      "actual_valid": true,
+      "passed": true,
+      "errors": []
+    },
+    {
+      "id": "LEG03",
+      "schema": "event-v1",
+      "expected_valid": true,
+      "actual_valid": true,
+      "passed": true,
+      "errors": []
+    },
+    {
+      "id": "LEG04",
+      "schema": "event-v1",
+      "expected_valid": true,
+      "actual_valid": true,
+      "passed": true,
+      "errors": []
+    },
+    {
+      "id": "LEG05",
+      "schema": "event-v1",
+      "expected_valid": true,
+      "actual_valid": true,
+      "passed": true,
+      "errors": []
+    },
+    {
+      "id": "LEG06",
+      "schema": "event-v1",
+      "expected_valid": true,
+      "actual_valid": true,
+      "passed": true,
+      "errors": []
+    },
+    {
+      "id": "LEG07",
+      "schema": "event-v1",
+      "expected_valid": true,
+      "actual_valid": true,
+      "passed": true,
+      "errors": []
+    },
+    {
+      "id": "LEG08",
+      "schema": "event-v1",
+      "expected_valid": true,
+      "actual_valid": true,
+      "passed": true,
+      "errors": []
+    },
+    {
+      "id": "EV09",
+      "schema": "event-v2",
+      "expected_valid": true,
+      "actual_valid": true,
+      "passed": true,
+      "errors": []
+    },
+    {
+      "id": "EV10",
+      "schema": "event-v2",
+      "expected_valid": true,
+      "actual_valid": true,
+      "passed": true,
+      "errors": []
+    },
+    {
+      "id": "OP01",
+      "schema": "operation-v2",
+      "expected_valid": true,
+      "actual_valid": true,
+      "passed": true,
+      "errors": []
+    },
+    {
+      "id": "PM01",
+      "schema": "permit-v2",
+      "expected_valid": true,
+      "actual_valid": true,
+      "passed": true,
+      "errors": []
+    },
+    {
+      "id": "NW01",
+      "schema": "network-grant-v2",
+      "expected_valid": true,
+      "actual_valid": true,
+      "passed": true,
+      "errors": []
+    },
+    {
+      "id": "EV11",
+      "schema": "event-v2",
+      "expected_valid": true,
+      "actual_valid": true,
+      "passed": true,
+      "errors": []
+    },
+    {
+      "id": "CP01",
+      "schema": "capabilities-v2",
+      "expected_valid": true,
+      "actual_valid": true,
+      "passed": true,
+      "errors": []
+    },
+    {
+      "id": "CP02",
+      "schema": "capabilities-v2",
+      "expected_valid": true,
+      "actual_valid": true,
+      "passed": true,
+      "errors": []
+    },
+    {
+      "id": "NEG01",
+      "schema": "event-v2",
+      "expected_valid": false,
+      "actual_valid": false,
+      "passed": true,
+      "errors": [
+        {
+          "instance_path": [],
+          "schema_path": [
+            "required"
+          ],
+          "keyword": "required"
+        }
+      ]
+    },
+    {
+      "id": "NEG02",
+      "schema": "event-v2",
+      "expected_valid": false,
+      "actual_valid": false,
+      "passed": true,
+      "errors": [
+        {
+          "instance_path": [
+            "extensions"
+          ],
+          "schema_path": [
+            "properties",
+            "extensions",
+            "additionalProperties"
+          ],
+          "keyword": "additionalProperties"
+        }
+      ]
+    },
+    {
+      "id": "NEG03",
+      "schema": "event-v2",
+      "expected_valid": false,
+      "actual_valid": false,
+      "passed": true,
+      "errors": [
+        {
+          "instance_path": [
+            "extensions",
+            "diagnostic.extra"
+          ],
+          "schema_path": [
+            "properties",
+            "extensions",
+            "patternProperties",
+            "^diagnostic\\.[a-z0-9_]{1,32}$",
+            "maxLength"
+          ],
+          "keyword": "maxLength"
+        }
+      ]
+    },
+    {
+      "id": "NEG04",
+      "schema": "event-v2",
+      "expected_valid": false,
+      "actual_valid": false,
+      "passed": true,
+      "errors": [
+        {
+          "instance_path": [
+            "execution_mode"
+          ],
+          "schema_path": [
+            "properties",
+            "execution_mode",
+            "enum"
+          ],
+          "keyword": "enum"
+        }
+      ]
+    },
+    {
+      "id": "NEG05",
+      "schema": "event-v2",
+      "expected_valid": false,
+      "actual_valid": false,
+      "passed": true,
+      "errors": [
+        {
+          "instance_path": [
+            "schema_version"
+          ],
+          "schema_path": [
+            "properties",
+            "schema_version",
+            "const"
+          ],
+          "keyword": "const"
+        }
+      ]
+    },
+    {
+      "id": "NEG06",
+      "schema": "event-v2",
+      "expected_valid": false,
+      "actual_valid": false,
+      "passed": true,
+      "errors": [
+        {
+          "instance_path": [
+            "policy_decision"
+          ],
+          "schema_path": [
+            "allOf",
+            0,
+            "then",
+            "properties",
+            "policy_decision",
+            "enum"
+          ],
+          "keyword": "enum"
+        },
+        {
+          "instance_path": [
+            "execution_mode"
+          ],
+          "schema_path": [
+            "allOf",
+            1,
+            "then",
+            "properties",
+            "execution_mode",
+            "const"
+          ],
+          "keyword": "const"
+        }
+      ]
+    },
+    {
+      "id": "NEG07",
+      "schema": "event-v2",
+      "expected_valid": false,
+      "actual_valid": false,
+      "passed": true,
+      "errors": [
+        {
+          "instance_path": [
+            "principal_snapshot",
+            "os_verified"
+          ],
+          "schema_path": [
+            "properties",
+            "principal_snapshot",
+            "allOf",
+            1,
+            "then",
+            "properties",
+            "os_verified",
+            "type"
+          ],
+          "keyword": "type"
+        },
+        {
+          "instance_path": [
+            "principal_snapshot",
+            "verifier_instance"
+          ],
+          "schema_path": [
+            "properties",
+            "principal_snapshot",
+            "allOf",
+            1,
+            "then",
+            "properties",
+            "verifier_instance",
+            "type"
+          ],
+          "keyword": "type"
+        },
+        {
+          "instance_path": [
+            "principal_snapshot",
+            "verified_at"
+          ],
+          "schema_path": [
+            "properties",
+            "principal_snapshot",
+            "allOf",
+            1,
+            "then",
+            "properties",
+            "verified_at",
+            "type"
+          ],
+          "keyword": "type"
+        },
+        {
+          "instance_path": [
+            "principal_snapshot",
+            "status"
+          ],
+          "schema_path": [
+            "allOf",
+            1,
+            "then",
+            "properties",
+            "principal_snapshot",
+            "properties",
+            "status",
+            "const"
+          ],
+          "keyword": "const"
+        }
+      ]
+    },
+    {
+      "id": "NEG08",
+      "schema": "event-v2",
+      "expected_valid": false,
+      "actual_valid": false,
+      "passed": true,
+      "errors": [
+        {
+          "instance_path": [
+            "operation_digest"
+          ],
+          "schema_path": [
+            "allOf",
+            1,
+            "then",
+            "properties",
+            "operation_digest",
+            "type"
+          ],
+          "keyword": "type"
+        }
+      ]
+    },
+    {
+      "id": "NEG09",
+      "schema": "event-v2",
+      "expected_valid": false,
+      "actual_valid": false,
+      "passed": true,
+      "errors": [
+        {
+          "instance_path": [
+            "grant",
+            "state"
+          ],
+          "schema_path": [
+            "allOf",
+            2,
+            "then",
+            "properties",
+            "grant",
+            "allOf",
+            1,
+            "properties",
+            "state",
+            "const"
+          ],
+          "keyword": "const"
+        }
+      ]
+    },
+    {
+      "id": "NEG10",
+      "schema": "event-v2",
+      "expected_valid": false,
+      "actual_valid": false,
+      "passed": true,
+      "errors": [
+        {
+          "instance_path": [
+            "network_requests"
+          ],
+          "schema_path": [
+            "allOf",
+            3,
+            "then",
+            "properties",
+            "network_requests",
+            "minItems"
+          ],
+          "keyword": "minItems"
+        }
+      ]
+    },
+    {
+      "id": "NEG11",
+      "schema": "event-v2",
+      "expected_valid": false,
+      "actual_valid": false,
+      "passed": true,
+      "errors": [
+        {
+          "instance_path": [
+            "source",
+            "kind"
+          ],
+          "schema_path": [
+            "allOf",
+            1,
+            "then",
+            "properties",
+            "source",
+            "properties",
+            "kind",
+            "const"
+          ],
+          "keyword": "const"
+        },
+        {
+          "instance_path": [
+            "execution_mode"
+          ],
+          "schema_path": [
+            "allOf",
+            1,
+            "then",
+            "properties",
+            "execution_mode",
+            "const"
+          ],
+          "keyword": "const"
+        },
+        {
+          "instance_path": [
+            "principal_snapshot",
+            "status"
+          ],
+          "schema_path": [
+            "allOf",
+            1,
+            "then",
+            "properties",
+            "principal_snapshot",
+            "properties",
+            "status",
+            "const"
+          ],
+          "keyword": "const"
+        },
+        {
+          "instance_path": [
+            "grant"
+          ],
+          "schema_path": [
+            "allOf",
+            1,
+            "then",
+            "properties",
+            "grant",
+            "allOf",
+            0,
+            "type"
+          ],
+          "keyword": "type"
+        }
+      ]
+    },
+    {
+      "id": "NEG12",
+      "schema": "capabilities-v2",
+      "expected_valid": false,
+      "actual_valid": false,
+      "passed": true,
+      "errors": [
+        {
+          "instance_path": [
+            "level"
+          ],
+          "schema_path": [
+            "allOf",
+            13,
+            "then",
+            "properties",
+            "level",
+            "const"
+          ],
+          "keyword": "const"
+        }
+      ]
+    },
+    {
+      "id": "NEG13",
+      "schema": "capabilities-v2",
+      "expected_valid": false,
+      "actual_valid": false,
+      "passed": true,
+      "errors": [
+        {
+          "instance_path": [
+            "certificate",
+            "evidence_grade"
+          ],
+          "schema_path": [
+            "allOf",
+            8,
+            "then",
+            "properties",
+            "certificate",
+            "allOf",
+            1,
+            "properties",
+            "evidence_grade",
+            "const"
+          ],
+          "keyword": "const"
+        }
+      ]
+    },
+    {
+      "id": "NEG14",
+      "schema": "capabilities-v2",
+      "expected_valid": false,
+      "actual_valid": false,
+      "passed": true,
+      "errors": [
+        {
+          "instance_path": [
+            "certificate",
+            "effective_state"
+          ],
+          "schema_path": [
+            "allOf",
+            2,
+            "then",
+            "properties",
+            "certificate",
+            "allOf",
+            1,
+            "properties",
+            "effective_state",
+            "const"
+          ],
+          "keyword": "const"
+        }
+      ]
+    },
+    {
+      "id": "NEG15",
+      "schema": "capabilities-v2",
+      "expected_valid": false,
+      "actual_valid": false,
+      "passed": true,
+      "errors": [
+        {
+          "instance_path": [
+            "certificate"
+          ],
+          "schema_path": [
+            "allOf",
+            4,
+            "then",
+            "properties",
+            "certificate",
+            "allOf",
+            0,
+            "type"
+          ],
+          "keyword": "type"
+        }
+      ]
+    },
+    {
+      "id": "NEG16",
+      "schema": "permit-v2",
+      "expected_valid": false,
+      "actual_valid": false,
+      "passed": true,
+      "errors": [
+        {
+          "instance_path": [
+            "max_uses"
+          ],
+          "schema_path": [
+            "properties",
+            "max_uses",
+            "const"
+          ],
+          "keyword": "const"
+        }
+      ]
+    },
+    {
+      "id": "NEG17",
+      "schema": "permit-v2",
+      "expected_valid": false,
+      "actual_valid": false,
+      "passed": true,
+      "errors": [
+        {
+          "instance_path": [
+            "ttl_ms"
+          ],
+          "schema_path": [
+            "properties",
+            "ttl_ms",
+            "maximum"
+          ],
+          "keyword": "maximum"
+        }
+      ]
+    },
+    {
+      "id": "NEG18",
+      "schema": "permit-v2",
+      "expected_valid": false,
+      "actual_valid": false,
+      "passed": true,
+      "errors": [
+        {
+          "instance_path": [
+            "mac"
+          ],
+          "schema_path": [
+            "properties",
+            "mac",
+            "pattern"
+          ],
+          "keyword": "pattern"
+        }
+      ]
+    },
+    {
+      "id": "NEG19",
+      "schema": "operation-v2",
+      "expected_valid": false,
+      "actual_valid": false,
+      "passed": true,
+      "errors": [
+        {
+          "instance_path": [
+            "arguments"
+          ],
+          "schema_path": [
+            "allOf",
+            0,
+            "then",
+            "properties",
+            "arguments",
+            "additionalProperties"
+          ],
+          "keyword": "additionalProperties"
+        }
+      ]
+    },
+    {
+      "id": "NEG20",
+      "schema": "operation-v2",
+      "expected_valid": false,
+      "actual_valid": false,
+      "passed": true,
+      "errors": [
+        {
+          "instance_path": [
+            "native_permission"
+          ],
+          "schema_path": [
+            "properties",
+            "native_permission",
+            "const"
+          ],
+          "keyword": "const"
+        }
+      ]
+    },
+    {
+      "id": "NEG21",
+      "schema": "network-grant-v2",
+      "expected_valid": false,
+      "actual_valid": false,
+      "passed": true,
+      "errors": [
+        {
+          "instance_path": [
+            "destination_ip"
+          ],
+          "schema_path": [
+            "properties",
+            "destination_ip",
+            "anyOf"
+          ],
+          "keyword": "anyOf"
+        }
+      ]
+    },
+    {
+      "id": "NEG22",
+      "schema": "network-grant-v2",
+      "expected_valid": false,
+      "actual_valid": false,
+      "passed": true,
+      "errors": [
+        {
+          "instance_path": [
+            "transport"
+          ],
+          "schema_path": [
+            "properties",
+            "transport",
+            "const"
+          ],
+          "keyword": "const"
+        }
+      ]
+    },
+    {
+      "id": "NEG23",
+      "schema": "network-grant-v2",
+      "expected_valid": false,
+      "actual_valid": false,
+      "passed": true,
+      "errors": [
+        {
+          "instance_path": [
+            "request_body_digest"
+          ],
+          "schema_path": [
+            "properties",
+            "request_body_digest",
+            "type"
+          ],
+          "keyword": "type"
+        }
+      ]
+    },
+    {
+      "id": "NEG24",
+      "schema": "network-grant-v2",
+      "expected_valid": false,
+      "actual_valid": false,
+      "passed": true,
+      "errors": [
+        {
+          "instance_path": [
+            "enforcement_state"
+          ],
+          "schema_path": [
+            "properties",
+            "enforcement_state",
+            "const"
+          ],
+          "keyword": "const"
+        }
+      ]
+    },
+    {
+      "id": "NEG25",
+      "schema": "grant-v2",
+      "expected_valid": false,
+      "actual_valid": false,
+      "passed": true,
+      "errors": [
+        {
+          "instance_path": [
+            "previous_state"
+          ],
+          "schema_path": [
+            "allOf",
+            3,
+            "then",
+            "properties",
+            "previous_state",
+            "enum"
+          ],
+          "keyword": "enum"
+        }
+      ]
+    },
+    {
+      "id": "NEG26",
+      "schema": "grant-v2",
+      "expected_valid": false,
+      "actual_valid": false,
+      "passed": true,
+      "errors": [
+        {
+          "instance_path": [
+            "previous_state"
+          ],
+          "schema_path": [
+            "properties",
+            "previous_state",
+            "enum"
+          ],
+          "keyword": "enum"
+        },
+        {
+          "instance_path": [
+            "previous_state"
+          ],
+          "schema_path": [
+            "allOf",
+            2,
+            "then",
+            "properties",
+            "previous_state",
+            "enum"
+          ],
+          "keyword": "enum"
+        }
+      ]
+    },
+    {
+      "id": "BD01",
+      "schema": "event-v2",
+      "expected_valid": true,
+      "actual_valid": true,
+      "passed": true,
+      "errors": []
+    },
+    {
+      "id": "NEG27",
+      "schema": "event-v2",
+      "expected_valid": false,
+      "actual_valid": false,
+      "passed": true,
+      "errors": [
+        {
+          "instance_path": [
+            "arguments"
+          ],
+          "schema_path": [
+            "properties",
+            "arguments",
+            "anyOf"
+          ],
+          "keyword": "anyOf"
+        }
+      ]
+    },
+    {
+      "id": "BD02",
+      "schema": "permit-v2",
+      "expected_valid": true,
+      "actual_valid": true,
+      "passed": true,
+      "errors": []
+    },
+    {
+      "id": "BD03",
+      "schema": "event-v2",
+      "expected_valid": true,
+      "actual_valid": true,
+      "passed": true,
+      "errors": []
+    },
+    {
+      "id": "NEG28",
+      "schema": "event-v2",
+      "expected_valid": false,
+      "actual_valid": false,
+      "passed": true,
+      "errors": [
+        {
+          "instance_path": [
+            "working_directory"
+          ],
+          "schema_path": [
+            "properties",
+            "working_directory",
+            "anyOf"
+          ],
+          "keyword": "anyOf"
+        }
+      ]
+    },
+    {
+      "id": "GR-created",
+      "schema": "grant-v2",
+      "expected_valid": true,
+      "actual_valid": true,
+      "passed": true,
+      "errors": []
+    },
+    {
+      "id": "GR-pending",
+      "schema": "grant-v2",
+      "expected_valid": true,
+      "actual_valid": true,
+      "passed": true,
+      "errors": []
+    },
+    {
+      "id": "GR-reserved",
+      "schema": "grant-v2",
+      "expected_valid": true,
+      "actual_valid": true,
+      "passed": true,
+      "errors": []
+    },
+    {
+      "id": "GR-consumed",
+      "schema": "grant-v2",
+      "expected_valid": true,
+      "actual_valid": true,
+      "passed": true,
+      "errors": []
+    },
+    {
+      "id": "GR-revoked",
+      "schema": "grant-v2",
+      "expected_valid": true,
+      "actual_valid": true,
+      "passed": true,
+      "errors": []
+    },
+    {
+      "id": "GR-expired",
+      "schema": "grant-v2",
+      "expected_valid": true,
+      "actual_valid": true,
+      "passed": true,
+      "errors": []
+    },
+    {
+      "id": "GR-invalidated",
+      "schema": "grant-v2",
+      "expected_valid": true,
+      "actual_valid": true,
+      "passed": true,
+      "errors": []
+    },
+    {
+      "id": "GR-failed",
+      "schema": "grant-v2",
+      "expected_valid": true,
+      "actual_valid": true,
+      "passed": true,
+      "errors": []
+    },
+    {
+      "id": "CP00",
+      "schema": "capabilities-v2",
+      "expected_valid": true,
+      "actual_valid": true,
+      "passed": true,
+      "errors": []
+    }
+  ]
+}

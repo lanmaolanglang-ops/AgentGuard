@@ -1,0 +1,76 @@
+{
+  "captured_at": "2026-11-06T01:33:48.5080775+00:00",
+  "os": {
+    "architecture": "64 位",
+    "version": "10.0.26200",
+    "build": "26200",
+    "caption": "Microsoft Windows 11 家庭版 中文版"
+  },
+  "tools": [
+    {
+      "name": "git",
+      "sha256": "7B7971DD13F0C3A284E538601F2F9770B3A87DFACCB5FB52D68141C67ED22364",
+      "path": "C:\\Program Files\\Git\\cmd\\git.exe"
+    },
+    {
+      "name": "cargo",
+      "sha256": "86478E53F769379D7F0EBFA7C9AA97CB76CA92233F79AA2CC0DBEE2EFAAC73C7",
+      "path": "%USERPROFILE%\\.cargo\\bin\\cargo.exe"
+    },
+    {
+      "name": "rustc",
+      "sha256": "86478E53F769379D7F0EBFA7C9AA97CB76CA92233F79AA2CC0DBEE2EFAAC73C7",
+      "path": "%USERPROFILE%\\.cargo\\bin\\rustc.exe"
+    },
+    {
+      "name": "rustup",
+      "sha256": "86478E53F769379D7F0EBFA7C9AA97CB76CA92233F79AA2CC0DBEE2EFAAC73C7",
+      "path": "%USERPROFILE%\\.cargo\\bin\\rustup.exe"
+    },
+    {
+      "name": "node",
+      "sha256": "3602F2BB1A10F2CBAB4C36886218A33C1AB3DB87290E73B033C46C77147D0237",
+      "path": "C:\\Program Files\\nodejs\\node.exe"
+    },
+    {
+      "name": "npm",
+      "sha256": "E8AEDC8C76D6CB9423B70EDE071228F7CB1644094C114B8721AE6D121100D4FE",
+      "path": "C:\\Program Files\\nodejs\\npm.ps1"
+    },
+    {
+      "name": "pnpm",
+      "sha256": "CF074D63E1573C01A30592688C7DFF15CD75AD4530EFFD8CAD64F128B9070B1B",
+      "path": "%USERPROFILE%\\AppData\\Roaming\\npm\\pnpm.ps1"
+    },
+    {
+      "name": "python",
+      "sha256": "03168C01B7B7491423350E82C26FEE71F35B43694D1319D3C668BDA6903A0C38",
+      "path": "D:\\python\\python.exe"
+    },
+    {
+      "name": "uv",
+      "sha256": "8DA6CEDEF60C27AC997EBF400FBFC6D373C5B0A7AE6A299B9D52BE7FE63723FB",
+      "path": "%USERPROFILE%\\AppData\\Local\\hermes\\bin\\uv.exe"
+    }
+  ],
+  "versions": {
+    "rustc": "1.97.1",
+    "cargo": "1.97.1",
+    "node": "24.19.0",
+    "npm": "11.17.0",
+    "pnpm": "11.7.0",
+    "python": "3.14.6",
+    "uv": "0.12.5",
+    "git": "2.55.0.windows.3"
+  },
+  "rust_target": "x86_64-pc-windows-msvc",
+  "rust_toolchain_alias": "stable",
+  "msvc_build_tools": "2022 BuildTools detected via vswhere",
+  "git_initial_state": "not_a_repository",
+  "git_remote": null,
+  "notes": [
+    "cargo/rustc路径摘要对应rustup shim，不等同工具链二进制摘要",
+    "工具版本在ci入口核对，完整工具链固定属于I20-A",
+    "Authenticode结果仅针对所选PE，不能替代Agent包/运行时认证"
+  ]
+}

@@ -1,0 +1,485 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agentguard:event:1.0.0",
+  "title": "AgentGuard normalized event",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "event_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "agent_id": {
+      "enum": [
+        "A01",
+        "A02",
+        "A03",
+        "A04",
+        "A05",
+        "A06",
+        "A07"
+      ]
+    },
+    "agent_version": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "session_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "process_id": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 1
+    },
+    "parent_process_id": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 1
+    },
+    "event_type": {
+      "enum": [
+        "session.started",
+        "session.ended",
+        "task.updated",
+        "tool.proposed",
+        "operation.received",
+        "policy.decided",
+        "permission.requested",
+        "execution.dispatched",
+        "execution.started",
+        "execution.result",
+        "file.observed",
+        "network.observed",
+        "process.observed",
+        "mcp.called",
+        "plugin.executed",
+        "subagent.started",
+        "subagent.ended",
+        "agent.crashed",
+        "hook.timeout",
+        "connection.lost",
+        "telemetry.gap",
+        "protection.changed",
+        "grant.created",
+        "grant.revoked"
+      ]
+    },
+    "tool_name": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "command": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "arguments": {
+      "type": [
+        "object",
+        "array",
+        "string",
+        "number",
+        "boolean",
+        "null"
+      ]
+    },
+    "working_directory": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "target_paths": {
+      "type": "array",
+      "maxItems": 1024,
+      "items": {
+        "$ref": "#/$defs/path"
+      }
+    },
+    "network_destinations": {
+      "type": "array",
+      "maxItems": 256,
+      "items": {
+        "$ref": "#/$defs/destination"
+      }
+    },
+    "execution_state": {
+      "enum": [
+        "not_applicable",
+        "proposed",
+        "pending",
+        "approved",
+        "denied",
+        "dispatched",
+        "running",
+        "succeeded",
+        "failed",
+        "cancelled",
+        "unknown"
+      ]
+    },
+    "policy_decision": {
+      "enum": [
+        null,
+        "allow",
+        "deny",
+        "ask",
+        "native_fallback",
+        "not_evaluated"
+      ]
+    },
+    "risk_level": {
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "critical",
+        "unknown"
+      ]
+    },
+    "evidence": {
+      "type": "array",
+      "maxItems": 256,
+      "items": {
+        "$ref": "#/$defs/evidence"
+      }
+    },
+    "timestamp": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "correlation_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "source": {
+      "$ref": "#/$defs/source"
+    },
+    "ingest_seq": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "received_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "operation_digest": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "missing_fields": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string"
+      }
+    },
+    "extensions": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "decision_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "grant_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "parent_session_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "subagent_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "parent_invocation_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "process_instance": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "connection_peer": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "policy_version": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "redaction": {
+      "type": "object",
+      "required": [
+        "applied",
+        "fields"
+      ],
+      "properties": {
+        "applied": {
+          "type": "boolean"
+        },
+        "fields": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "schema_version",
+    "event_id",
+    "agent_id",
+    "agent_version",
+    "session_id",
+    "process_id",
+    "parent_process_id",
+    "event_type",
+    "tool_name",
+    "command",
+    "arguments",
+    "working_directory",
+    "target_paths",
+    "network_destinations",
+    "execution_state",
+    "policy_decision",
+    "risk_level",
+    "evidence",
+    "timestamp",
+    "correlation_id",
+    "source",
+    "ingest_seq",
+    "received_at",
+    "operation_digest",
+    "missing_fields",
+    "extensions"
+  ],
+  "$defs": {
+    "path": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "value",
+        "operation",
+        "resolution",
+        "identity"
+      ],
+      "properties": {
+        "value": {
+          "type": "string",
+          "maxLength": 32768
+        },
+        "operation": {
+          "enum": [
+            "read",
+            "create",
+            "write",
+            "delete",
+            "rename",
+            "execute",
+            "unknown"
+          ]
+        },
+        "resolution": {
+          "enum": [
+            "claimed",
+            "lexical",
+            "handle_verified",
+            "unknown"
+          ]
+        },
+        "identity": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "destination": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "host",
+        "port",
+        "protocol",
+        "verification"
+      ],
+      "properties": {
+        "host": {
+          "type": "string",
+          "maxLength": 1024
+        },
+        "port": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1,
+          "maximum": 65535
+        },
+        "protocol": {
+          "enum": [
+            "http",
+            "https",
+            "tcp",
+            "udp",
+            "unknown"
+          ]
+        },
+        "verification": {
+          "enum": [
+            "claimed",
+            "observed",
+            "enforced",
+            "unknown"
+          ]
+        }
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "producer",
+        "verification",
+        "summary",
+        "reference"
+      ],
+      "properties": {
+        "kind": {
+          "enum": [
+            "agent_claim",
+            "adapter_report",
+            "core_record",
+            "os_observation",
+            "independent_check",
+            "inference",
+            "unknown"
+          ]
+        },
+        "producer": {
+          "type": "string",
+          "maxLength": 128
+        },
+        "verification": {
+          "enum": [
+            "unverified",
+            "authenticated_source",
+            "corroborated",
+            "verified_in_scope"
+          ]
+        },
+        "summary": {
+          "type": "string",
+          "maxLength": 4096
+        },
+        "reference": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "adapter_id",
+        "adapter_version",
+        "instance_id",
+        "source_event_id",
+        "sequence",
+        "invocation_id",
+        "channel",
+        "profile_id"
+      ],
+      "properties": {
+        "adapter_id": {
+          "type": "string"
+        },
+        "adapter_version": {
+          "type": "string"
+        },
+        "instance_id": {
+          "type": "string"
+        },
+        "source_event_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "sequence": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "invocation_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "channel": {
+          "enum": [
+            "hook",
+            "extension",
+            "import",
+            "sensor",
+            "core"
+          ]
+        },
+        "profile_id": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

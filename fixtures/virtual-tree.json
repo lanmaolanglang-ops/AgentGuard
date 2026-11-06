@@ -1,0 +1,18 @@
+{
+  "record_kind": "synthetic_fixture",
+  "materialized": false,
+  "root": "D:\\GuardLab",
+  "files": [
+    {
+      "path": "project/README.md",
+      "content": "AgentGuard synthetic fixture\n"
+    },
+    {
+      "path": "project/reports/fake.txt",
+      "content": "FAKE_DATA_NO_CREDENTIALS"
+    }
+  ],
+  "network_sink": "sink.invalid",
+  "real_network_enabled": false,
+  "real_agent_connected": false
+}

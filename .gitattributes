@@ -1,0 +1,8 @@
+* text=auto
+/docs/p0/** -text
+/docs/p0.1/** -text
+*.rs text eol=lf
+*.py text eol=lf
+*.json text eol=lf
+*.toml text eol=lf
+*.yml text eol=lf

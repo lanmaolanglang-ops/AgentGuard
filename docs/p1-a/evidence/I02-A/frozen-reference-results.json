@@ -1,0 +1,1 @@
+{"schemas": 9, "fixtures": 65, "positive": 37, "negative": 28, "fixture_failures": 0, "legacy_migrations": 8, "state_pair_checks": 64, "parser_rejections": 13, "parser_positive": 1, "semantic_checks": 6, "version_rejections": 3, "ci_deployed": false}
