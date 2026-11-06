@@ -16,3 +16,5 @@ AgentGuard V2.0 · 2026-11-06
 固定源 `sqlite3.c` SHA-256 为 `0c657666d819f261cc4007526ad57e1669de9949df7a8ea847aa284a2bf0ee52`，与 C2 的同一源码字节一致。官方公布的 SHA3-256 为 `e2b869d3003b33c942b7dd7063604fbc53553e1b66609570df39b9b7b558ee81`，两者分别记录。正式 I05/G0 沿用 OMIT_LOAD_EXTENSION，C2 原探针使用其已验收的独立编译选项。[SQLite 官方发布](https://sqlite.org/releaselog/3_54_1.html)
 
 本地生成目录为 `.work/g0/`。最终远端回执将核对 run 的 head_sha、artifact.workflow_run 绑定、ZIP 实际 SHA-256 和 CRC，再读取独立证据计数。回执单独保存在本工作树 `.work/g0-ci-receipt.json`，避免给受测提交追加自引用。原 I05/C2 产物分别保留在各自验收运行。[原 I05 CI](https://github.com/lanmaolanglang-ops/AgentGuard/actions/runs/42202489196) · [原 C2 CI](https://github.com/lanmaolanglang-ops/AgentGuard/actions/runs/42192978038)
+
+首次专项运行 `42228056699` 的账本产物实测 27 通过、0 失败。默认浅克隆缺少 I05 父提交，生成 Rust 差异证据时中止，未进入专项 C2 和第一批阶段。已调整专项工作流为完整检出，失败产物 `13505474488` 的 SHA-256 为 `915d8d542b80b15de71e32d9c2d3b22566c6d00f51c8964c4d6cf180cb6fa27f`，ZIP 和日志归档于 `.work/g0-ci-history/42228056699/`。[首次专项运行](https://github.com/lanmaolanglang-ops/AgentGuard/actions/runs/42228056699)
