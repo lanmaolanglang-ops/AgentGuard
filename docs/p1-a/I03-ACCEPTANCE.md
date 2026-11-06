@@ -14,13 +14,13 @@ AgentGuard V2.0 · P1-A · 2026-11-06
 
 ## 本地测试与证据
 
-统一入口.venv\\Scripts\\python.exe -B tools/ci.py。10门禁分别为设计/身份/DAG、提取一致、Python测试、标准Schema、独立密码学参考、Rust格式、Clippy -D warnings、构建、Rust合同和真实合成IPC。
+统一入口为tools/ci.py，在项目.venv的Python中运行。10门禁分别为设计/身份/DAG、提取一致、Python测试、标准Schema、独立密码学参考、Rust格式、Clippy -D warnings、构建、Rust合同和真实合成IPC。
 
 Python 17项、Rust 14项、Windows合成进程与CLI入口13项，共44个测试函数。最终执行结果以统一门禁和远端CI记录为准。65夹具、21向量、8迁移与64状态对是其中展开的数据覆盖，不重复计为额外测试函数。Rust/Python/Node对typed字节/frame/MAC一致。Core不会因收到审批、allow或OS身份字段而执行任何业务操作。
 
 ## 安全审查与未覆盖
 
-固定中文错误不回显原始参数。OS实际peer PID+创建时间/token+image绑定和显式当前logon DACL用于合成进程通道。公网/其它用户/不同IL、真实Agent upstream身份、持久授权和Windows隔离边界仍未验证。签名、生产key部署、broker最终消费/崩溃恢复属于后续I05/I06/I07/I18/I22，当前不作认证。
+固定中文错误不回显原始参数。OS实际peer PID+创建时间/token+image绑定和显式当前logon DACL用于合成进程通道。合成迁移只接受冻结8样本，真实历史日志导入等待I08脱敏。公网/其它用户/不同IL、真实Agent upstream身份、持久授权和Windows隔离边界仍未验证。签名、生产key部署、broker最终消费/崩溃恢复属于后续I05/I06/I07/I18/I22，当前不作认证。
 
 对应Issue I03，AT21/23/29/34的上述合成子范围。完整Prepare→Evidence授权链需要I04/I05/I06，当前第一批按依赖停止。
 

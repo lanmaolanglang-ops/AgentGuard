@@ -33,7 +33,7 @@ source_event_id在单连接内去重，同ID内容改变拒绝。持久source le
 
 Rust标准jsonschema固定Draft2020-12，启用format，资源retriever只读取嵌入9份Schema的本地URN map，关闭网络/文件默认features。Schema是可信构建输入，操作帧先严格解析。CLI的schema_valid只表达结构结果，authorization_available=false。
 
-Rust迁移API验证legacy schema，保留原事件ID与raw字节SHA256关联，声明身份进入reported，旧许可和OS认证清除，事件成为imported。无法在新字段边界内完整表示时拒绝导入并要求保留原记录，避免静默截断。所有8冻结legacy样本通过。
+Rust合成迁移API仅接受8个冻结legacy样本，按canonical输入hash匹配，先验证legacy schema，保留原事件ID与raw字节SHA256关联，声明身份进入reported，旧许可和OS认证清除，事件成为imported。未知/修改输入直接拒绝，避免在I08脱敏尚未实现时把真实秘密标成audit-safe。真实日志导入须等I08脱敏后另行开放。所有8冻结样本通过。
 
 密码学库仅提供六个固定域的typed encoding/frame/HMAC及constant-time verify_slice。当前使用公开假key测试，尚无生产key存储或授权IPC签名接口。Rust/Python/Node共同核对21向量。
 

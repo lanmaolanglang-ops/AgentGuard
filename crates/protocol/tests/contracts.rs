@@ -1,7 +1,7 @@
 use agentguard_protocol::{
     crypto::{self, Domain},
     ingress::{Role, Session},
-    migration::import_legacy,
+    migration::import_legacy_fixture,
     parse::{MAX_FRAME_BYTES, parse_json},
     schema::Schemas,
 };
@@ -163,7 +163,7 @@ fn eight_legacy_records_migrate_without_authority_and_preserve_source_digest() {
     for index in 1..=8 {
         let old = fixture(&format!("LEG{index:02}"));
         let raw = serde_json::to_vec(&old).unwrap();
-        let imported = import_legacy(
+        let imported = import_legacy_fixture(
             &schemas(),
             &raw,
             "2026-11-06T10:00:00Z",
@@ -200,6 +200,24 @@ fn eight_legacy_records_migrate_without_authority_and_preserve_source_digest() {
         assert_eq!(imported.original_sha256.len(), 64);
         schemas().validate("event-v2", &event).unwrap();
     }
+    let mut changed = fixture("LEG01");
+    changed["command"] = json!("FAKE_SECRET_DO_NOT_LOG");
+    let raw = serde_json::to_vec(&changed).unwrap();
+    let error = import_legacy_fixture(
+        &schemas(),
+        &raw,
+        "2026-11-06T10:00:00Z",
+        "00000000-0000-4000-8000-000000000999",
+        1,
+    )
+    .err()
+    .unwrap();
+    assert_eq!(error.code, "synthetic_import_only");
+    assert!(
+        !serde_json::to_string(&error)
+            .unwrap()
+            .contains("FAKE_SECRET")
+    );
 }
 
 #[test]

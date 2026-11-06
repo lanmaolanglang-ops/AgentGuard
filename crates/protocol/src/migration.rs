@@ -33,8 +33,8 @@ pub fn empty_capabilities(scope_id: &str) -> Value {
     })
 }
 
-/// Migrate historical observations only. No previous approval or identity becomes authoritative.
-pub fn import_legacy(
+/// Only frozen synthetic samples are accepted until I08 supplies real-data redaction.
+pub fn import_legacy_fixture(
     schemas: &Schemas,
     raw: &[u8],
     received_at: &str,
@@ -43,6 +43,25 @@ pub fn import_legacy(
 ) -> Result<ImportedEvent> {
     let old = parse_json(raw)?;
     schemas.validate("event-v1", &old)?;
+    const SYNTHETIC_INPUT_HASHES: [&str; 8] = [
+        "5c0b74c848cee184409fd81f782b2aaa92183b55ebf909f16b510dd9ad63253d",
+        "5c0042f2b6cc0960854ea44b2f7c88e27241d4c27c9925f91d21c94dbc082349",
+        "afcde126ed3fe4c355ea3b4fdc9c219d214dab49f9bcba6560f4ea74e319af68",
+        "485621a14b13c68f0340c1b2cb9f6904ffc1e1ae38cbe4f7713d65ed5841ab6b",
+        "1ee4ceb3c04e33fb99b93462b5b539c74e9d8b50ce2313689bb6b1968d77b89a",
+        "f11427b2281e07d996b7e4fb5ea2aac9ff1d46a9a847f051c8eb7fe824db79f6",
+        "b7ac29f8fc2f770e5bc35f643735fa95507fe67efd9e86995dd1cefcfcc67430",
+        "4f5978dddd3f1c3f207764e08b6e4db19094dfd0bf6490a3070e8920e57476b7",
+    ];
+    let canonical = serde_json::to_vec(&old)
+        .map_err(|_| ProtocolError::new("migration_encoding", "无法校验历史输入。"))?;
+    let input_hash = crate::crypto::hex(&Sha256::digest(canonical));
+    if !SYNTHETIC_INPUT_HASHES.contains(&input_hash.as_str()) {
+        return Err(ProtocolError::new(
+            "synthetic_import_only",
+            "当前阶段只接收冻结的合成导入样本，真实日志需先经过后续脱敏流程。",
+        ));
+    }
     let event_id = old["event_id"].as_str().unwrap();
     let evidence: Vec<_> = old["evidence"]
         .as_array()
