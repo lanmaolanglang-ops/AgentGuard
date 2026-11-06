@@ -14,6 +14,9 @@ use std::{
     time::{Duration, Instant},
 };
 
+#[path = "g0_tests.rs"]
+mod g0;
+
 const TIMEOUT: Duration = Duration::from_secs(20);
 const POLICY: u32 = 7;
 const GRANT_EPOCH: u32 = 9;
@@ -51,7 +54,14 @@ impl Fixture {
 impl Drop for Fixture {
     fn drop(&mut self) {
         // The constructor created this UUID child exclusively for this test.
-        let _ = fs::remove_dir_all(&self.0);
+        if std::thread::panicking() {
+            eprintln!(
+                "retained failing synthetic DB fixture: {}",
+                self.0.display()
+            );
+        } else {
+            let _ = fs::remove_dir_all(&self.0);
+        }
     }
 }
 
@@ -193,9 +203,36 @@ fn sqlite_build_omits_extension_loading_and_enforces_writer_pragmas() {
         Ledger::reopen(fixture.path(), POLICY, GRANT_EPOCH).err(),
         Some(Error::Busy)
     );
+    for (pragma, expected) in [
+        ("recursive_triggers", 1),
+        ("trusted_schema", 0),
+        ("busy_timeout", 150),
+        ("wal_autocheckpoint", 1000),
+    ] {
+        assert_eq!(
+            ledger
+                .db()
+                .pragma_query_value(None, pragma, |r| r.get::<_, i64>(0))
+                .unwrap(),
+            expected
+        );
+    }
+    let compiler: String = ledger.db().query_row(
+        "SELECT compile_options FROM pragma_compile_options WHERE compile_options LIKE 'COMPILER=%'",
+        [], |r| r.get(0),
+    ).unwrap();
+    let threadsafe: bool = ledger
+        .db()
+        .query_row(
+            "SELECT sqlite_compileoption_used('THREADSAFE=1')",
+            [],
+            |r| r.get(0),
+        )
+        .unwrap();
+    assert!(compiler.starts_with("COMPILER=msvc-") && threadsafe);
     println!(
-        "EVIDENCE SQLITE version={} source={} omit={} enable={} load_function=missing wal/full/fk=verified",
-        actual.0, actual.1, actual.2, actual.3
+        "EVIDENCE SQLITE version={} source={} omit={} enable={} load_function=missing wal/full/fk=verified recursive=1 trusted_schema=0 busy_ms=150 autocheckpoint=1000 threadsafe=1 {}",
+        actual.0, actual.1, actual.2, actual.3, compiler
     );
 }
 
@@ -814,6 +851,8 @@ fn at45_unknown_commit_only_reconciles_and_writer_is_fenced() {
         "EVIDENCE AT45 unknown_commit=no_ACK fenced=true reconciled_sequence={} {evidence}",
         receipt.sequence
     );
+    assert!(evidence.contains("reservation_bindings=1 execution_bindings=1"));
+    println!("EVIDENCE G0c-12 unknown_commit=fenced one_consumed independent_reconcile_only=true");
 }
 
 #[test]
@@ -851,6 +890,8 @@ fn at45_actual_commit_error_returns_no_receipt_and_preserves_reserved() {
         Ok(Some(State::Invalidated))
     );
     println!("EVIDENCE AT45 commit_constraint=deferred_fk ack=none receipt=none {evidence}");
+    assert!(evidence.contains("reservation_bindings=1 execution_bindings=0"));
+    println!("EVIDENCE G0c-11 deferred_fk=no_ack independent_rollback=verified");
 }
 
 #[test]
@@ -1014,12 +1055,28 @@ fn at45_database_rejects_all_49_illegal_state_pairs() {
                 _ => false,
             };
             let tx = ledger.db().unchecked_transaction().unwrap();
-            let actual = tx.execute(
-                "UPDATE grants SET state=?,wall_deadline=100,mono_deadline=100 WHERE id=?",
-                (end.name(), b.grant),
-            );
+            let actual = if legal && end == State::Reserved {
+                g0::stage_reservation(&tx, b, n, true).unwrap();
+                tx.execute("UPDATE grants SET state='reserved',wall_deadline=1100,mono_deadline=200 WHERE id=?", [b.grant])
+            } else {
+                if legal && end == State::Consumed {
+                    g0::stage_execution(&tx, b).unwrap();
+                }
+                tx.execute(
+                    "UPDATE grants SET state=? WHERE id=?",
+                    (end.name(), b.grant),
+                )
+            };
             assert_eq!(actual.is_ok(), legal, "{start:?} -> {end:?}");
             assert_eq!(start.permits(end), legal);
+            if legal {
+                tx.execute(
+                    "INSERT INTO audit(grant_id,kind,previous,state) VALUES(?,'transition',?,?)",
+                    (b.grant, start.name(), end.name()),
+                )
+                .unwrap();
+                db::domain_integrity(&tx).unwrap();
+            }
             allowed += usize::from(legal);
             tx.rollback().unwrap();
         }
@@ -1076,7 +1133,7 @@ fn migration_and_archive_preserve_history_and_never_restore_active_grants() {
     .unwrap();
     drop(raw);
     let mut ledger = legacy.reopen();
-    assert_eq!(db::version(ledger.db()), Ok(2));
+    assert_eq!(db::version(ledger.db()), Ok(3));
     assert_eq!(
         legacy.inspection().grant(old.grant),
         Ok(Some(State::Invalidated))
@@ -1115,7 +1172,10 @@ fn migration_and_archive_preserve_history_and_never_restore_active_grants() {
     );
     assert_eq!(Inspection::open(copied.path()).err(), Some(Error::Archived));
     println!(
-        "EVIDENCE AT36/45 schema=1->2 old_grant=invalidated archive=read_only archived_reactivation=denied live=consumed"
+        "EVIDENCE AT36/45 schema=1->2->3 old_grant=invalidated archive=read_only archived_reactivation=denied live=consumed"
+    );
+    println!(
+        "EVIDENCE G0c-14 archived_reactivation=denied live=consumed independent_reader=verified"
     );
 }
 
@@ -1128,6 +1188,12 @@ fn integrity_schema_and_version_fail_closed_without_reinitializing() {
         match case {
             "version" => ledger.db().pragma_update(None, "user_version", 99).unwrap(),
             "state" => {
+                // Deliberate corruption uses unsupported settings. Normal connections
+                // reject this update at commit through the deferred head reference.
+                ledger
+                    .db()
+                    .pragma_update(None, "foreign_keys", false)
+                    .unwrap();
                 ledger
                     .db()
                     .execute("UPDATE grants SET state='revoked' WHERE id=?", [b.grant])
@@ -1350,6 +1416,16 @@ fn at45_process_crashes_at_reserve_consume_audit_response_and_launch() {
         println!(
             "EVIDENCE AT45 fault={mode} wal_bytes={wal_bytes} sink={launched} before=[{recorded}] after=[{post_restart}]"
         );
+        let (reservations, executions) = match expected {
+            State::Pending => (0, 0),
+            State::Reserved => (1, 0),
+            State::Consumed => (1, 1),
+            _ => unreachable!(),
+        };
+        let bindings =
+            format!("reservation_bindings={reservations} execution_bindings={executions}");
+        assert!(recorded.contains(&bindings) && post_restart.contains(&bindings));
+        println!("EVIDENCE G0c-10 point={mode} independent_reopen=verified {bindings}");
     }
 }
 
@@ -1378,8 +1454,14 @@ fn child_fixture() {
                 [grant], |r| Ok((r.get(0)?,r.get(1)?,r.get(2)?,r.get(3)?,r.get(4)?,r.get(5)?)),
             ).unwrap();
             println!(
-                "EVIDENCE-CHILD state={:?} transitions={} consumed={} nonce={} execution={} cancel={}",
-                result.0, result.1, result.2, result.3, result.4, result.5
+                "EVIDENCE-CHILD state={:?} transitions={} consumed={} nonce={} execution={} cancel={} {}",
+                result.0,
+                result.1,
+                result.2,
+                result.3,
+                result.4,
+                result.5,
+                g0::read_binding_counts(&db, grant)
             );
         }
         "writer-contender" => assert_eq!(

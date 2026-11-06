@@ -12,9 +12,10 @@ use std::{
 };
 
 pub(crate) const APPLICATION_ID: i64 = 0x4147_4C44;
-pub(crate) const VERSION: i64 = 2;
+pub(crate) const VERSION: i64 = 3;
 pub(crate) const V1: &str = include_str!("../migrations/001-grants.sql");
 const V2: &str = include_str!("../migrations/002-events.sql");
+const V3: &str = include_str!("../migrations/003-g0-integrity.sql");
 pub(crate) const DB: &str = "ledger.sqlite3";
 const ARCHIVE: &str = "history.sqlite3";
 const STAGING: &str = "history.pending";
@@ -102,7 +103,18 @@ pub(crate) fn connection(path: &Path, flags: OpenFlags) -> Result<Connection> {
     if version != "3.54.1" || source != SOURCE || !omitted || enabled {
         return Err(Error::Build);
     }
-    db.execute_batch("PRAGMA trusted_schema=OFF; PRAGMA foreign_keys=ON;")?;
+    db.execute_batch(
+        "PRAGMA trusted_schema=OFF; PRAGMA foreign_keys=ON; PRAGMA recursive_triggers=ON;",
+    )?;
+    for (pragma, expected) in [
+        ("trusted_schema", 0),
+        ("foreign_keys", 1),
+        ("recursive_triggers", 1),
+    ] {
+        if db.pragma_query_value(None, pragma, |r| r.get::<_, i64>(0))? != expected {
+            return Err(Error::Storage);
+        }
+    }
     Ok(db)
 }
 
@@ -127,7 +139,7 @@ pub(crate) fn version(db: &Connection) -> Result<i64> {
     Ok(version)
 }
 
-pub(crate) fn migrate(tx: &Transaction<'_>, previous: i64, epoch: Epoch) -> Result<()> {
+pub(crate) fn migrate_legacy(tx: &Transaction<'_>, previous: i64, epoch: Epoch) -> Result<()> {
     if previous == 0 {
         tx.pragma_update(None, "application_id", APPLICATION_ID)?;
         tx.execute_batch(V1)?;
@@ -138,8 +150,14 @@ pub(crate) fn migrate(tx: &Transaction<'_>, previous: i64, epoch: Epoch) -> Resu
     }
     if previous < 2 {
         tx.execute_batch(V2)?;
-        tx.pragma_update(None, "user_version", VERSION)?;
+        tx.pragma_update(None, "user_version", 2)?;
     }
+    Ok(())
+}
+
+pub(crate) fn install_g0(tx: &Transaction<'_>) -> Result<()> {
+    tx.execute_batch(V3)?;
+    tx.pragma_update(None, "user_version", VERSION)?;
     Ok(())
 }
 
@@ -162,15 +180,27 @@ pub(crate) fn epoch(db: &Connection) -> Result<(Epoch, bool)> {
 
 pub(crate) fn integrity(db: &Connection) -> Result<()> {
     let structural: String = db.query_row("PRAGMA integrity_check", [], |r| r.get(0))?;
-    let fk_broken = db.prepare("PRAGMA foreign_key_check")?.exists([])?;
-    if structural != "ok" || fk_broken {
+    if structural != "ok" {
         return Err(Error::Corrupt);
     }
+    let version = version(db)?;
     // Compare to the schema SQLite creates from the checked-in migrations.
     let reference = Connection::open_in_memory()?;
     reference.execute_batch(V1)?;
-    reference.execute_batch(V2)?;
+    if version >= 2 {
+        reference.execute_batch(V2)?;
+    }
+    if version >= 3 {
+        reference.execute_batch(V3)?;
+    }
     if schema_objects(db)? != schema_objects(&reference)? {
+        return Err(Error::Corrupt);
+    }
+    domain_integrity(db)
+}
+
+pub(crate) fn domain_integrity(db: &Connection) -> Result<()> {
+    if db.prepare("PRAGMA foreign_key_check")?.exists([])? {
         return Err(Error::Corrupt);
     }
     let invalid: bool = db.query_row(
@@ -178,11 +208,14 @@ pub(crate) fn integrity(db: &Connection) -> Result<()> {
            SELECT grant_id, previous, lag(state) OVER(PARTITION BY grant_id ORDER BY seq) AS prior
            FROM audit WHERE kind='transition'
          )
-         SELECT EXISTS(SELECT 1 FROM steps WHERE previous IS NOT prior)
+         SELECT EXISTS(SELECT 1 FROM audit WHERE seq<=0)
+            OR EXISTS(SELECT 1 FROM steps WHERE previous IS NOT prior)
             OR EXISTS(SELECT 1 FROM grants g JOIN decisions d ON d.id=g.decision WHERE
                 g.state IS NOT (SELECT a.state FROM audit a WHERE a.grant_id=g.id AND a.kind='transition'
                                 ORDER BY a.seq DESC LIMIT 1)
                 OR (g.wall_deadline IS NOT NULL) != EXISTS(SELECT 1 FROM nonces n WHERE n.grant_id=g.id)
+                OR (g.wall_deadline IS NOT NULL) != EXISTS(SELECT 1 FROM audit a
+                    WHERE a.grant_id=g.id AND a.kind='transition' AND a.state='reserved')
                 OR (g.state='consumed') != EXISTS(SELECT 1 FROM execution e WHERE e.grant_id=g.id)
                 OR (g.wall_deadline IS NOT NULL AND d.eligible != 1))
             OR EXISTS(SELECT 1 FROM decisions d WHERE NOT EXISTS(SELECT 1 FROM grants g WHERE g.decision=d.id))
@@ -195,7 +228,20 @@ pub(crate) fn integrity(db: &Connection) -> Result<()> {
         [],
         |r| r.get(0),
     )?;
-    if invalid { Err(Error::Corrupt) } else { Ok(()) }
+    if invalid {
+        return Err(Error::Corrupt);
+    }
+    if version(db)? == 3
+        && db.query_row::<bool, _, _>(
+            "SELECT NOT EXISTS(SELECT 1 FROM g0_cutover WHERE id=1)
+             OR EXISTS(SELECT 1 FROM g0_binding_faults)",
+            [],
+            |r| r.get(0),
+        )?
+    {
+        return Err(Error::Corrupt);
+    }
+    Ok(())
 }
 
 fn schema_objects(db: &Connection) -> Result<Vec<(String, String, String)>> {
@@ -203,7 +249,10 @@ fn schema_objects(db: &Connection) -> Result<Vec<(String, String, String)>> {
         .prepare(
             "SELECT type,name,sql FROM sqlite_schema WHERE sql IS NOT NULL ORDER BY type,name",
         )?
-        .query_map([], |r| Ok((r.get(0)?, r.get(1)?, r.get(2)?)))?
+        .query_map([], |r| {
+            let sql: String = r.get(2)?;
+            Ok((r.get(0)?, r.get(1)?, sql.replace("\r\n", "\n")))
+        })?
         .collect::<rusqlite::Result<_>>()?)
 }
 

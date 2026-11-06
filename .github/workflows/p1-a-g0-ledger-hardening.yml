@@ -1,0 +1,36 @@
+name: P1-A G0 ledger hardening
+on:
+  push:
+    branches: ['p1-a/g0-ledger-hardening']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  g0:
+    runs-on: windows-2022
+    timeout-minutes: 22
+    env:
+      RUSTUP_TOOLCHAIN: '1.97.1'
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: '3.14.6'
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '24.19.0'
+      - name: Fixed Rust toolchain
+        run: rustup toolchain install 1.97.1 --profile minimal --component clippy --component rustfmt
+      - name: Locked validation dependencies
+        run: |
+          python -m pip install --disable-pip-version-check --require-hashes --only-binary=:all: -r requirements-ci.lock
+      - name: Verify G0, then C2 and first-batch regressions
+        run: python -B tools/verify_g0.py
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: g0-ledger-hardening-evidence
+          path: .work/g0
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 14

@@ -133,6 +133,9 @@ impl Ledger {
         if prior != 0 && db::epoch(&connection)?.1 {
             return Err(Error::Archived);
         }
+        if prior != 0 {
+            db::integrity(&connection)?;
+        }
         db::configure_writer(&connection)?;
         let epoch = Epoch {
             boot: Bytes(uuid::Uuid::new_v4().into_bytes()),
@@ -140,7 +143,10 @@ impl Ledger {
             grant: grant_epoch,
         };
         let tx = connection.transaction_with_behavior(TransactionBehavior::Immediate)?;
-        db::migrate(&tx, prior, epoch)?;
+        if prior != 0 {
+            db::integrity(&tx)?;
+        }
+        db::migrate_legacy(&tx, prior, epoch)?;
         let (stored, archived) = db::epoch(&tx)?;
         if archived || epoch.policy < stored.policy || epoch.grant < stored.grant {
             return Err(Error::Epoch);
@@ -167,6 +173,10 @@ impl Ledger {
             "UPDATE meta SET boot=?,policy=?,grant_epoch=? WHERE singleton=1",
             (epoch.boot, epoch.policy, epoch.grant),
         )?;
+        if prior < db::VERSION {
+            db::install_g0(&tx)?;
+        }
+        db::integrity(&tx)?;
         tx.commit().map_err(|_| Error::UnknownCommit)?;
         Ok(Self {
             connection,
@@ -232,6 +242,7 @@ impl Ledger {
             Some((mutation.request, fingerprint)),
         )?;
         self.faults.reach(Stage::BeforeCommit, &tx)?;
+        db::domain_integrity(&tx)?;
         tx.commit().map_err(|_| Error::UnknownCommit)?;
         self.faults
             .reach(Stage::AfterCommit, &self.connection)
@@ -356,6 +367,27 @@ fn load(db: &Connection, binding: Binding) -> Result<Grant> {
     if actual != binding {
         return Err(Error::Binding);
     }
+    if state == State::Reserved
+        && !db.query_row::<bool, _, _>(
+            "SELECT EXISTS(SELECT 1 FROM g0_reservations
+         WHERE grant_id=? AND decision_id=? AND operation_digest=? AND boot=? AND policy=?
+           AND grant_epoch=? AND nonce_hash=? AND wall_deadline=? AND mono_deadline=?)",
+            params![
+                binding.grant,
+                binding.decision,
+                binding.input,
+                binding.epoch.boot,
+                binding.epoch.policy,
+                binding.epoch.grant,
+                nonce,
+                wall,
+                mono
+            ],
+            |row| row.get(0),
+        )?
+    {
+        return Err(Error::Corrupt);
+    }
     Ok(Grant {
         state,
         eligible,
@@ -412,17 +444,32 @@ fn mutate(
             }
             let (wall, mono) = time.now()?;
             let ttl = i64::from(ttl_ms);
-            deadline = Some((
-                wall.checked_add(ttl).ok_or(Error::Clock)?,
-                mono.checked_add(ttl).ok_or(Error::Clock)?,
-            ));
-            if tx.execute(
-                "INSERT INTO nonces VALUES(?,?) ON CONFLICT(hash) DO NOTHING",
-                (nonce, b.grant),
-            )? != 1
-            {
+            let wall = wall.checked_add(ttl).ok_or(Error::Clock)?;
+            let mono = mono.checked_add(ttl).ok_or(Error::Clock)?;
+            if tx.query_row::<bool, _, _>(
+                "SELECT EXISTS(SELECT 1 FROM nonces WHERE hash=?)",
+                [nonce],
+                |row| row.get(0),
+            )? {
                 return Err(Error::Replay);
             }
+            tx.execute(
+                "INSERT INTO g0_reservations(grant_id,decision_id,operation_digest,boot,policy,
+                 grant_epoch,nonce_hash,wall_deadline,mono_deadline) VALUES(?,?,?,?,?,?,?,?,?)",
+                params![
+                    b.grant,
+                    b.decision,
+                    b.input,
+                    b.epoch.boot,
+                    b.epoch.policy,
+                    b.epoch.grant,
+                    nonce,
+                    wall,
+                    mono
+                ],
+            )?;
+            tx.execute("INSERT INTO nonces VALUES(?,?)", (nonce, b.grant))?;
+            deadline = Some((wall, mono));
             State::Reserved
         }
         Action::Consume { nonce } => {
@@ -440,6 +487,10 @@ fn mutate(
             if wall >= wall_end || mono >= mono_end {
                 State::Expired
             } else {
+                tx.execute(
+                    "INSERT INTO g0_execution_bindings(grant_id,operation_digest) VALUES(?,?)",
+                    (b.grant, b.input),
+                )?;
                 tx.execute("INSERT INTO execution VALUES(?,'unknown',0)", [b.grant])?;
                 State::Consumed
             }
