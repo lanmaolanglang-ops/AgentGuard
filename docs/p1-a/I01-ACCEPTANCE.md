@@ -19,7 +19,7 @@ PASS，允许启动I02-A、I20-A与I23。身份未知以显式缺口交付，七
 - [README.md](../../README.md)
 - [docs/p1-a/PROGRESS.md](PROGRESS.md)
 
-另初始化本地Git main分支，当前未设置远端。没有修改P0或P0.1。
+I01验收时已初始化本地Git，尚未设置远端。负责人随后提供GitHub地址，本批交付基于origin/main建立独立分支p1-a/first-batch并推送。P0或P0.1字节保持冻结。
 
 ## 架构与依赖
 

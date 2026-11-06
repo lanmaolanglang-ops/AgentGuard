@@ -72,6 +72,7 @@ AgentGuard V2.0 · 2026-11-06
 - [evidence/I02-A/frozen-reference-results.json](evidence/I02-A/frozen-reference-results.json)
 - [evidence/I02-A/schema-results.json](evidence/I02-A/schema-results.json)
 - [evidence/I03/local-gates.json](evidence/I03/local-gates.json)
+- [evidence/I03/github-ci.json](evidence/I03/github-ci.json)
 - [evidence/I20-A/build-script-review.json](evidence/I20-A/build-script-review.json)
 - [evidence/I20-A/development-sbom.json](evidence/I20-A/development-sbom.json)
 - [evidence/I20-A/python-package-sources.json](evidence/I20-A/python-package-sources.json)
@@ -86,6 +87,8 @@ AgentGuard V2.0 · 2026-11-06
 - [I20-A-SUPPLY-CHAIN.md](I20-A-SUPPLY-CHAIN.md)
 - [I23-ACCEPTANCE.md](I23-ACCEPTANCE.md)
 - [NEW-FINDINGS.md](NEW-FINDINGS.md)
+- [FINAL-REPORT.md](FINAL-REPORT.md)
+- [SECURITY-AUDIT.md](SECURITY-AUDIT.md)
 - [PROGRESS.md](PROGRESS.md)
 - [SCOPE-AND-ACCEPTANCE.md](SCOPE-AND-ACCEPTANCE.md)
 

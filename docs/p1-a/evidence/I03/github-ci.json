@@ -1,0 +1,30 @@
+{
+  "scope": "P1-A_first_batch_synthetic_only",
+  "run_id": 42152532076,
+  "url": "https://github.com/lanmaolanglang-ops/AgentGuard/actions/runs/42152532076",
+  "head_sha": "9e8a7283b5b091f893d51d81af74b99458fbecfe",
+  "status": "completed",
+  "conclusion": "success",
+  "gates_passed": 10,
+  "gates_failed": 0,
+  "python_tests": 17,
+  "rust_tests": 14,
+  "windows_process_and_cli_tests": 13,
+  "test_functions_passed": 44,
+  "test_functions_failed": 0,
+  "artifacts": [
+    {
+      "id": 13473371424,
+      "name": "p1-a-synthetic-evidence",
+      "size_in_bytes": 6407,
+      "digest": "sha256:fcddde94051bb339f245d999229e1b0ecffa8f0c798911ba427a5935c839d3cf"
+    }
+  ],
+  "prior_workflow_syntax_failure": {
+    "run_id": 42150776625,
+    "fixed_by": "1b15018e69f95fd74edbe9c1d20db4c388b04197"
+  },
+  "real_agents_at_L0": 7,
+  "real_agent_tests_run": false,
+  "os_isolation_certified": false
+}

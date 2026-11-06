@@ -4,28 +4,28 @@
     {
       "name": "baseline",
       "command": [
-        "python.exe",
+        "D:\\AgentGuard\\.venv\\Scripts\\python.exe",
         "-B",
         "tools/baseline.py"
       ],
       "exit_code": 0,
-      "elapsed_seconds": 0.088
+      "elapsed_seconds": 0.097
     },
     {
       "name": "extraction",
       "command": [
-        "python.exe",
+        "D:\\AgentGuard\\.venv\\Scripts\\python.exe",
         "-B",
         "tools/extract_protocol.py",
         "--check"
       ],
       "exit_code": 0,
-      "elapsed_seconds": 0.148
+      "elapsed_seconds": 0.131
     },
     {
       "name": "python-tests",
       "command": [
-        "python.exe",
+        "D:\\AgentGuard\\.venv\\Scripts\\python.exe",
         "-B",
         "-m",
         "unittest",
@@ -35,29 +35,29 @@
         "-v"
       ],
       "exit_code": 0,
-      "elapsed_seconds": 0.884
+      "elapsed_seconds": 1.314
     },
     {
       "name": "schema-fixtures",
       "command": [
-        "python.exe",
+        "D:\\AgentGuard\\.venv\\Scripts\\python.exe",
         "-B",
         "-m",
         "tools.check_fixtures"
       ],
       "exit_code": 0,
-      "elapsed_seconds": 0.559
+      "elapsed_seconds": 0.534
     },
     {
       "name": "crypto-references",
       "command": [
-        "python.exe",
+        "D:\\AgentGuard\\.venv\\Scripts\\python.exe",
         "-B",
         "-m",
         "tools.check_crypto"
       ],
       "exit_code": 0,
-      "elapsed_seconds": 0.188
+      "elapsed_seconds": 0.204
     },
     {
       "name": "rust-format",
@@ -69,7 +69,7 @@
         "--check"
       ],
       "exit_code": 0,
-      "elapsed_seconds": 0.293
+      "elapsed_seconds": 1.472
     },
     {
       "name": "rust-lint",
@@ -84,7 +84,7 @@
         "warnings"
       ],
       "exit_code": 0,
-      "elapsed_seconds": 1.631
+      "elapsed_seconds": 1.643
     },
     {
       "name": "rust-build",
@@ -95,7 +95,7 @@
         "--locked"
       ],
       "exit_code": 0,
-      "elapsed_seconds": 3.222
+      "elapsed_seconds": 0.416
     },
     {
       "name": "rust-tests",
@@ -106,17 +106,17 @@
         "--locked"
       ],
       "exit_code": 0,
-      "elapsed_seconds": 3.741
+      "elapsed_seconds": 2.795
     },
     {
       "name": "windows-ipc",
       "command": [
-        "python.exe",
+        "D:\\AgentGuard\\.venv\\Scripts\\python.exe",
         "-B",
         "tools/test_ipc.py"
       ],
       "exit_code": 0,
-      "elapsed_seconds": 15.677
+      "elapsed_seconds": 14.48
     }
   ],
   "passed": 10,
