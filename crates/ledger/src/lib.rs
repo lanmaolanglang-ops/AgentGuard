@@ -9,6 +9,7 @@ mod writer;
 
 pub use db::{Archive, Inspection};
 pub use store::Ledger;
+pub use store::s;
 pub use writer::{Client, Writer};
 
 use rusqlite::types::{FromSql, FromSqlError, FromSqlResult, ToSql, ToSqlOutput, ValueRef};

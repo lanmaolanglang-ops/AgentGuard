@@ -16,6 +16,7 @@ pub(crate) const VERSION: i64 = 3;
 pub(crate) const V1: &str = include_str!("../migrations/001-grants.sql");
 const V2: &str = include_str!("../migrations/002-events.sql");
 const V3: &str = include_str!("../migrations/003-g0-integrity.sql");
+pub(crate) const V4: &str = include_str!("../migrations/004-s-atomic.sql");
 pub(crate) const DB: &str = "ledger.sqlite3";
 const ARCHIVE: &str = "history.sqlite3";
 const STAGING: &str = "history.pending";
@@ -131,9 +132,17 @@ pub(crate) fn configure_writer(db: &Connection) -> Result<()> {
 }
 
 pub(crate) fn version(db: &Connection) -> Result<i64> {
+    let version = recognized_version(db)?;
+    if version > VERSION {
+        return Err(Error::Version);
+    }
+    Ok(version)
+}
+
+pub(crate) fn recognized_version(db: &Connection) -> Result<i64> {
     let id: i64 = db.query_row("PRAGMA application_id", [], |r| r.get(0))?;
     let version: i64 = db.query_row("PRAGMA user_version", [], |r| r.get(0))?;
-    if id != APPLICATION_ID || !(1..=VERSION).contains(&version) {
+    if id != APPLICATION_ID || !(1..=4).contains(&version) {
         return Err(Error::Version);
     }
     Ok(version)
@@ -183,7 +192,7 @@ pub(crate) fn integrity(db: &Connection) -> Result<()> {
     if structural != "ok" {
         return Err(Error::Corrupt);
     }
-    let version = version(db)?;
+    let version = recognized_version(db)?;
     // Compare to the schema SQLite creates from the checked-in migrations.
     let reference = Connection::open_in_memory()?;
     reference.execute_batch(V1)?;
@@ -193,10 +202,17 @@ pub(crate) fn integrity(db: &Connection) -> Result<()> {
     if version >= 3 {
         reference.execute_batch(V3)?;
     }
+    if version == 4 {
+        reference.execute_batch(V4)?;
+    }
     if schema_objects(db)? != schema_objects(&reference)? {
         return Err(Error::Corrupt);
     }
-    domain_integrity(db)
+    domain_integrity(db)?;
+    if version == 4 {
+        crate::s::domain_integrity(db)?;
+    }
+    Ok(())
 }
 
 pub(crate) fn domain_integrity(db: &Connection) -> Result<()> {
@@ -231,7 +247,7 @@ pub(crate) fn domain_integrity(db: &Connection) -> Result<()> {
     if invalid {
         return Err(Error::Corrupt);
     }
-    if version(db)? == 3
+    if recognized_version(db)? >= 3
         && db.query_row::<bool, _, _>(
             "SELECT NOT EXISTS(SELECT 1 FROM g0_cutover WHERE id=1)
              OR EXISTS(SELECT 1 FROM g0_binding_faults)",
@@ -279,7 +295,7 @@ pub(crate) fn find_receipt(
         .optional()?)
 }
 
-pub struct Inspection(Connection);
+pub struct Inspection(pub(crate) Connection);
 
 impl Inspection {
     pub fn open(path: &Path) -> Result<Self> {
@@ -289,7 +305,7 @@ impl Inspection {
     fn read(path: &Path, archive: bool) -> Result<Self> {
         let db = connection(path, OpenFlags::SQLITE_OPEN_READ_ONLY)?;
         db.execute_batch("PRAGMA query_only=ON;")?;
-        version(&db)?;
+        recognized_version(&db)?;
         if epoch(&db)?.1 != archive {
             return Err(Error::Archived);
         }
@@ -372,23 +388,7 @@ pub(crate) fn archive(source: &Connection, path: &Path) -> Result<()> {
     let stage = root.join(STAGING);
     File::create_new(&stage).map_err(|_| Error::Storage)?;
     let mut destination = connection(&stage, OpenFlags::SQLITE_OPEN_READ_WRITE)?;
-    {
-        let backup = Backup::new(source, &mut destination)?;
-        let mut complete = false;
-        for _ in 0..4096 {
-            match backup.step(64)? {
-                StepResult::Done => {
-                    complete = true;
-                    break;
-                }
-                StepResult::More => {}
-                _ => return Err(Error::Busy),
-            }
-        }
-        if !complete {
-            return Err(Error::Storage);
-        }
-    }
+    backup_snapshot(source, &mut destination)?;
     let mode: String = destination.query_row("PRAGMA journal_mode=DELETE", [], |r| r.get(0))?;
     if mode != "delete" {
         return Err(Error::Storage);
@@ -401,4 +401,16 @@ pub(crate) fn archive(source: &Connection, path: &Path) -> Result<()> {
         .map_err(|(_, error)| Error::from(error))?;
     fs::rename(stage, root.join(ARCHIVE)).map_err(|_| Error::Storage)?;
     Ok(())
+}
+
+pub(crate) fn backup_snapshot(source: &Connection, destination: &mut Connection) -> Result<()> {
+    let backup = Backup::new(source, destination)?;
+    for _ in 0..4096 {
+        match backup.step(64)? {
+            StepResult::Done => return Ok(()),
+            StepResult::More => {}
+            _ => return Err(Error::Busy),
+        }
+    }
+    Err(Error::Storage)
 }

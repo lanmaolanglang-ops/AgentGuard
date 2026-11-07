@@ -14,6 +14,8 @@ use std::{
 
 const REJECTED_REQUEST_BUDGET: usize = 4096;
 
+pub mod s;
+
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub(crate) enum Stage {
     BeforeAudit,
@@ -88,6 +90,7 @@ pub struct Ledger {
     fenced: bool,
     rejected_requests: HashSet<Id>,
     faults: Faults,
+    pub(crate) s: Option<s::Runtime>,
 }
 
 impl Ledger {
@@ -185,6 +188,7 @@ impl Ledger {
             fenced: false,
             rejected_requests: HashSet::new(),
             faults: Faults::default(),
+            s: None,
             time: Time {
                 clock: Box::new(ProcessClock(Instant::now())),
                 wall_high: 0,
@@ -213,10 +217,19 @@ impl Ledger {
     }
 
     fn apply_inner(&mut self, mutation: Mutation) -> Result<Outcome> {
+        if let Some(runtime) = self.s.as_ref() {
+            runtime.check_marker()?;
+        }
         let tx = self
             .connection
             .transaction_with_behavior(TransactionBehavior::Immediate)?;
         let fingerprint = mutation.fingerprint();
+        if self.s.is_some()
+            && (s::owns_grant(&tx, mutation.binding.grant)?
+                || s::has_request(&tx, mutation.request)?)
+        {
+            return Err(Error::Scope);
+        }
         if let Some((receipt, previous)) = db::find_receipt(&tx, mutation.request)? {
             return if previous == fingerprint {
                 Ok(Outcome::Reconciled(receipt))
@@ -243,6 +256,9 @@ impl Ledger {
         )?;
         self.faults.reach(Stage::BeforeCommit, &tx)?;
         db::domain_integrity(&tx)?;
+        if self.s.is_some() {
+            s::domain_integrity(&tx)?;
+        }
         tx.commit().map_err(|_| Error::UnknownCommit)?;
         self.faults
             .reach(Stage::AfterCommit, &self.connection)
@@ -254,6 +270,7 @@ impl Ledger {
         if matches!(
             result,
             Err(Error::UnknownCommit
+                | Error::Fenced
                 | Error::Corrupt
                 | Error::Sqlite(_)
                 | Error::Clock
@@ -273,6 +290,9 @@ impl Ledger {
     }
 
     fn ingest_inner(&mut self, event: Observation) -> Result<Ingest> {
+        if let Some(runtime) = self.s.as_ref() {
+            runtime.check_marker()?;
+        }
         if !(1..=9_007_199_254_740_991).contains(&event.sequence) {
             return Err(Error::Input);
         }

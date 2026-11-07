@@ -5,6 +5,9 @@ use uuid::Uuid;
 pub struct UtcMillis(u64);
 
 impl UtcMillis {
+    pub fn unix_millis(self) -> u64 {
+        self.0
+    }
     pub fn from_unix_millis(value: u64) -> Result<Self> {
         (value <= 253_402_300_799_999)
             .then_some(Self(value))

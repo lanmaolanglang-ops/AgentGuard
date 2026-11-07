@@ -10,6 +10,15 @@ const OBSERVATION_CAPACITY: usize = 64;
 enum Job {
     Apply(Mutation, SyncSender<Result<Outcome>>),
     Ingest(Observation, SyncSender<Result<Ingest>>),
+    S(
+        Box<crate::s::SRequest>,
+        SyncSender<Result<crate::s::SOutcome>>,
+    ),
+    Take(
+        crate::s::DurableCommitReceipt,
+        agentguard_typed_authorization::PeerBinding,
+        SyncSender<Result<crate::s::SResponse>>,
+    ),
 }
 
 #[derive(Clone)]
@@ -20,6 +29,23 @@ pub struct Client {
 }
 
 impl Client {
+    pub fn submit_s(
+        &self,
+        request: crate::s::SRequest,
+    ) -> Result<Receiver<Result<crate::s::SOutcome>>> {
+        let (send, receive) = sync_channel(1);
+        self.enqueue(&self.control, Job::S(Box::new(request), send))?;
+        Ok(receive)
+    }
+    pub fn take_s(
+        &self,
+        receipt: crate::s::DurableCommitReceipt,
+        peer: agentguard_typed_authorization::PeerBinding,
+    ) -> Result<Receiver<Result<crate::s::SResponse>>> {
+        let (send, receive) = sync_channel(1);
+        self.enqueue(&self.control, Job::Take(receipt, peer, send))?;
+        Ok(receive)
+    }
     fn enqueue(&self, channel: &SyncSender<Job>, job: Job) -> Result<()> {
         channel.try_send(job).map_err(|error| match error {
             TrySendError::Full(_) => Error::QueueFull,
@@ -68,6 +94,16 @@ impl Writer {
                         }
                         Job::Ingest(observation, response) => {
                             let _ = response.send(ledger.ingest(observation));
+                        }
+                        Job::S(request, response) => {
+                            if response.send(ledger.apply_s(*request)).is_err()
+                                && let Some(runtime) = ledger.s.as_mut()
+                            {
+                                runtime.reap_abandoned_slots();
+                            }
+                        }
+                        Job::Take(receipt, peer, response) => {
+                            let _ = response.send(ledger.take_s(receipt, peer));
                         }
                     }
                 }

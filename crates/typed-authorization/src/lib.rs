@@ -5,6 +5,7 @@
 mod clock;
 mod crypto;
 mod model;
+pub mod s_preflight;
 mod snapshot;
 mod state;
 

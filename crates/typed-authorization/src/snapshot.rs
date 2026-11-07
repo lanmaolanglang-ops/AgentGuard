@@ -51,7 +51,7 @@ impl Snapshot {
         })
     }
 
-    fn validate_evidence(value: &Value, os_boot_id: Uuid) -> Result<()> {
+    pub(crate) fn validate_evidence(value: &Value, os_boot_id: Uuid) -> Result<()> {
         for key in ["requestor_principal", "executor_principal"] {
             let principal = &value[key];
             let process = &principal["process_instance"];
